@@ -21,14 +21,19 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     };
-    fetch(`${api.URL}/api/user/login`, {
-    method: 'POST',
-    body: jsondata,
-    headers: {"Content-Type" : "application/json",
-    "Access-Control-Allow-Origin":"*" }
-    }).then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
+    
+    axios({
+      method: 'post',
+      url: `${api.URL}/api/user/login`,
+      data: jsondata
+    })
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
     })
   };
 
