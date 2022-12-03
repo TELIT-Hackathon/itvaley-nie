@@ -14,12 +14,7 @@ const UserSchema = new Schema({
     categories: [ObjectId],
     role: String, // 'student' | 'teacher' | 'expert'
     location: String,
-    picture: {
-        large: String,
-        medium: String,
-        thumbnail: String,
-    },
-    setupComplete: Boolean
+    picture: null
 })
 
 const User = mongoose.model('User', UserSchema)

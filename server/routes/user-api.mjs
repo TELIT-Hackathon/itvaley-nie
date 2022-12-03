@@ -15,17 +15,20 @@ userApi.post('/register', async (req, res) => {
     const data = req.body;
     console.log(data);
 
-    if(data.username && data.password){
+    const newUser = new User({
+        username: data.username,
+        password: data.password,
+        name: {
+            title: data.title,
+            first: data.firstName,
+            last: data.lastName
+        },
+        categories: [],
+        role: data.role,
+        location: data.location,
 
-        const newUser = new User({
-            username: data.username,
-            password: data.password,
-            setupComplete: false
-        });
-        await newUser.save();
-        
-        res.send("OK");
-    }else{
-        res.status(406).send('Not Acceptable')
-    }
+    });
+    await newUser.save();
+    
+    res.send("OK");
 });
