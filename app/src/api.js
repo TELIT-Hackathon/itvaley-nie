@@ -18,7 +18,9 @@ class ApiProvideraa extends React.Component {
             token: localStorage.getItem('token'),
             user: null,
         }
+    }
 
+    componentDidMount() {
         this.tryGetMe()
     }
 
@@ -63,7 +65,7 @@ class ApiProvideraa extends React.Component {
 
             this.setState({
                 user: meRequest.data
-            }, () => redirect ? this.redirect('/user') : () => {})
+            }, redirect ? (() => this.redirect('/user/dashboard')) : (() => {}))
         }
         catch(err) { console.log(err) }
     }
