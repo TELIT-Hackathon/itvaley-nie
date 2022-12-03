@@ -1,3 +1,4 @@
+import { AddToHomeScreen } from '@mui/icons-material';
 import './App.css';
 import Dashboard from './component/homeScreen';
 import LogIn from './component/signIn.js';
@@ -22,6 +23,7 @@ function App() {
       </header> */}
       <LogIn/>
       {/* <SignUp/> */}
+      {/*<Dashboard/>*/}
     </div>
   );
 }
