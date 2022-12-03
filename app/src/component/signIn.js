@@ -22,7 +22,7 @@ export default function SignIn() {
     };
     fetch(`${api.URL}/api/user/login`, {
     method: 'POST',
-    body: JSON.stringify(jsondata)
+    body: jsondata
     }).then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
