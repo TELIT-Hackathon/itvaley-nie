@@ -1,5 +1,5 @@
 Ideme robit appku v Reacte s MUI; Server Node MongoDB a Express
-TODO: Registrácia a prihlásenie b
+TODO: Registrácia a prihlásenie c
 
 - Čo ideme robiť?
 	- Skupiny a profil užívateľa
