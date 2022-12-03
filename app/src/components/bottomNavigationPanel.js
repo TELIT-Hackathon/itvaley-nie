@@ -44,11 +44,13 @@ export default class LabelBottomNavigation extends React.Component {
                 />
               </Link>
               
-              <BottomNavigationAction
-                label="Request"
-                value="request"
-                icon={<ReceiptIcon />}
-              />
+              <Link to="/user/requests">
+                <BottomNavigationAction
+                  label="Requests"
+                  value="requests"
+                  icon={<ReceiptIcon />}
+                />
+              </Link>
               <BottomNavigationAction
                 label="Search"
                 value="search"

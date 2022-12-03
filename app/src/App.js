@@ -1,8 +1,8 @@
 import './App.css';
 import * as React from 'react';
-import LogIn from './component/signIn.js';
-import SignUp from './component/signUp.js';
-import HomeScreen from './component/homeScreen.js';
+import LogIn from './components/signIn.js';
+import SignUp from './components/signUp.js';
+import HomeScreen from './components/homeScreen.js';
 import User from './User';
 
 import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
