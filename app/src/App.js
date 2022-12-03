@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 
 	function App() {
 	return (
-		<BrowserRouter className="App">
+		<BrowserRouter className="App" sx={{height: '100vh'}}>
 		<Routes>
 			<Route path="/">
 				<Route index element={
