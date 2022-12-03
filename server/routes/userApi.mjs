@@ -9,10 +9,11 @@ export const userApi = new Router()
 const hashPassword = password => crypto.createHash('sha256').update(password).digest('hex')
 const generateToken = () => crypto.randomBytes(64).toString('hex')
 
-// 
+// JUST FOR TESTING!!!
 userApi.get('/all', protectedAsyncFunc(async (req, res) => {
     res.json(await User.find().exec());
-})); //Yaa
+})); 
+
 userApi.get('/me', protectedFunc((req, res) => {
     res.json(req.user);
 }, true)); //Yaa
@@ -27,9 +28,15 @@ userApi.get('/contacts', protectedAsyncFunc(async (req, res) => {
     const contacts = await User.find({_id: req.user.contacts}).exec()
     res.json(contacts)
 }, true)); //Yaa
+
 userApi.get('/:id', protectedAsyncFunc(async (req, res) => {
     const user = await User.findById(req.params.id).exec()
     res.json(user)
+})); //Yaa
+// JUST FOR TESTING!!!
+userApi.put('/:id', protectedAsyncFunc(async (req, res) => {
+    await User.updateOne({_id:req.params.id}, req.body).exec()
+    res.send("OK")
 })); //Yaa
 
 
@@ -70,12 +77,18 @@ userApi.post('/register', protectedAsyncFunc(async (req, res) => {
         role: data.role,
         location: data.location,
         picture:{
-            large: "",
-            medium: "",
-            thumbnail: ""
+            large: data.picture,
+            medium: data.picture,
+            thumbnail: data.picture
         }
     })
-    await newUser.save()
+    const user = await newUser.save()
+    user.password = undefined
+    const token = generateToken()
+
+    const session = new Session({user: user.id, token})
+    await session.save()
+    user.token = token
     
-    res.send("OK")
+    res.json(user)
 })) //Yaa
