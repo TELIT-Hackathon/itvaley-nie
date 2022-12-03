@@ -1,8 +1,8 @@
-import { AddToHomeScreen } from '@mui/icons-material';
 import './App.css';
-import Dashboard from './component/homeScreen';
+import Dashboard from './component/dashboard';
 import LogIn from './component/signIn.js';
 import SignUp from './component/signUp.js';
+import HomeScreen from './component/homeScreen';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Typography } from '@mui/material';
@@ -22,7 +22,8 @@ import { Typography } from '@mui/material';
 						Hello madafaka
 					</a>
 				} />
-				<Route path="home" element={<Dashboard/>} />
+        <Route path="home" element={<HomeScreen/>} />
+				<Route path="dashboard" element={<Dashboard/>} />
 				<Route path="register" element={<SignUp/>} />
 				<Route path="login" element={<LogIn/>} />
 				<Route path="*" element={<Typography>NENI TAKE</Typography>} />
