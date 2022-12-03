@@ -15,6 +15,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomeIcon from '@mui/icons-material/Home';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import SearchIcon from '@mui/icons-material/Search';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PersonIcon from '@mui/icons-material/Person';
 
 //import { mainListItems, secondaryListItems } from './listItems';
 //import Chart from './Chart';
@@ -36,17 +40,25 @@ function LabelBottomNavigation() {
         icon={<HomeIcon />}
       />
       <BottomNavigationAction
-        label="Favorites"
-        value="favorites"
-        icon={<FavoriteIcon />}
+        label="Request"
+        value="request"
+        icon={<ReceiptIcon />}
       />
       <BottomNavigationAction
-        label="Nearby"
-        value="nearby"
-        icon={<LocationOnIcon />}
+        label="Search"
+        value="search"
+        icon={<SearchIcon />}
       />
-      <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
-
+      <BottomNavigationAction 
+        label="Contacts" 
+        value="contacts" 
+        icon={<PeopleAltIcon />} 
+      />
+      <BottomNavigationAction 
+        label="Profile" 
+        value="profile" 
+        icon={<PersonIcon />} 
+      />
     </BottomNavigation>
   );
 }
