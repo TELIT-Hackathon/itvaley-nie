@@ -4,11 +4,13 @@ import { tagsApi } from './Routes/tags-api.mjs'
 import { processUser } from './login.mjs'
 import mongoose from 'mongoose'
 import { userApi } from './Routes/user-api.mjs'
+import cors from 'cors'
 
 await mongoose.connect('mongodb+srv://admin:aJlXDjXh6dLBUhWV@cluster0.ijfjind.mongodb.net/test')
 
 const app = express()
 app.use(express.json()) // for parsing application/json
+app.use(cors())
 
 const baseRouter = new Router()
 baseRouter.use(async (req, res, next) => {
@@ -16,11 +18,6 @@ baseRouter.use(async (req, res, next) => {
     console.log(`Body ${JSON.stringify(req.body)}`)
 
     req.user = await processUser(req)
-
-    next()
-})
-baseRouter.use(async (req, res, next) => {
-    res.append("Access-Control-Allow-Origin", "*")
 
     next()
 })
