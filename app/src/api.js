@@ -50,12 +50,12 @@ class ApiProvideraa extends React.Component {
 
             this.setState({
                 token: tokenRequest.data.token
-            }, this.tryGetMe)
+            }, () => this.tryGetMe(true))
         }
         catch(err) { error(err) }
     }
 
-    tryGetMe = async () => {
+    tryGetMe = async (redirect = false) => {
         try {
             const meRequest = await this.request('/user/me', {
                 method: 'GET'
@@ -63,7 +63,7 @@ class ApiProvideraa extends React.Component {
 
             this.setState({
                 user: meRequest.data
-            })
+            }, () => redirect ? this.redirect('/user') : () => {})
         }
         catch(err) { console.log(err) }
     }
