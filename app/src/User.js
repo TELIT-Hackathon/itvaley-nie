@@ -1,16 +1,16 @@
 import './App.css';
 import * as React from 'react';
-import Dashboard from './component/dashboard';
-import Contacts from './component/contactList';
-import DashboardContent from './component/dashboard';
-import Request from './component/request';
-import Profile from './component/profile';
-import Message from './component/message';
+import Dashboard from './components/dashboard';
+import Contacts from './components/contactList';
+import DashboardContent from './components/dashboard';
+import Requests from './screens/requests';
+import Profile from './components/profile';
+import Message from './components/message';
 import Box from '@mui/material/Box';
 
 import { Context } from './api';
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { Typography } from '@mui/material';
 
 
@@ -22,8 +22,10 @@ export default class User extends React.Component {
             recents: null
         }
     } 
+
     render() {
-        return <>
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaa ' + this.context.loggedIn())
+        return (this.context.loggedIn() ? <>
             <DashboardContent/>
             <Switch>
                 <Route path="/user/dashboard">
@@ -32,9 +34,12 @@ export default class User extends React.Component {
                 <Route path="/user/contacts"><Contacts/></Route>
                 <Route path="/user/profile"><Profile/></Route>
           		<Route path="message"><Message/></Route>
-          		<Route path="request"><Request/></Route>
+          		<Route path="/user/requests"><Requests/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
-        </>;
+        </> : <>
+            <Redirect to='/signin'/>
+        </>)
     }
 }
+User.contextType = Context
