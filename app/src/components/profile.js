@@ -116,14 +116,6 @@ export default class Profile extends React.Component {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                      fullWidth
-                                      id="picture"
-                                      label="Avatar"
-                                      name="picture"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
                                     fullWidth
                                     disabled
                                     id="role"
