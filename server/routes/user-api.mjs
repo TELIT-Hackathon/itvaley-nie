@@ -34,7 +34,7 @@ userApi.post('/login', async (req, res) => {
             res.json({token})
         }
         else {
-            throw
+            res.status(406).send("Invalid")
         }
     }
     catch(err) {
@@ -60,9 +60,13 @@ userApi.post('/register', async (req, res) => {
         categories: [],
         role: data.role,
         location: data.location,
-
-    });
-    await newUser.save();
+        picture:{
+            large: "",
+            medium: "",
+            thumbnail: ""
+        }
+    })
+    await newUser.save()
     
-    res.send("OK");
+    res.send("OK")
 });
