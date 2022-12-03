@@ -14,13 +14,6 @@ import ApiConsumer, {ApiProvider} from './api';
 const theme = createTheme();
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            recents: null
-        }
-    } 
     render() {
 		return (
 			<ThemeProvider theme={theme}>
