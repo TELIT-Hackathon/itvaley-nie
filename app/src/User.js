@@ -23,6 +23,8 @@ export default class User extends React.Component {
             <Switch>
                 <Route path="/user/dashboard"><Dashboard/></Route>
                 <Route path="/user/contacts"><Contacts/></Route>
+                <Route path="profile"><Profile/></Route>
+          		<Route path="message"><Message/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
         </>;
