@@ -8,5 +8,5 @@ const CategorySchema = new Schema({
     parent: ObjectId,
 })
 
-const Category = mongoose.model('User', CategorySchema)
+const Category = mongoose.model('Category', CategorySchema)
 export default Category
