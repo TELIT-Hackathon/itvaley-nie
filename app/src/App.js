@@ -6,6 +6,7 @@ import HomeScreen from './component/homeScreen.js';
 import Contacts from './component/contactList.js';
 import Profile from './component/profile.js';
 import Message from './component/message.js';
+import Request from './component/request.js';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Typography } from '@mui/material';
@@ -37,6 +38,7 @@ function App() {
 					<Route path="login" element={<LogIn/>} />
           <Route path="profile" element={<Profile/>} />
           <Route path="message" element={<Message/>} />
+          <Route path="request" element={<Request/>} />
 					<Route path="*" element={<Typography>NENI TAKE</Typography>} />
 				</Route>
 			</Routes>

@@ -35,19 +35,20 @@ function LabelBottomNavigation() {
 
   return (
     <BottomNavigation sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} value={value} onChange={handleChange}>
-      <Link to="/home">
+      <Link to="/dashboard">
         <BottomNavigationAction
           label="Home"
           value="home"
           icon={<HomeIcon />}
         />
       </Link>
-      
+      <Link to="/request">
       <BottomNavigationAction
         label="Request"
         value="request"
         icon={<ReceiptIcon />}
       />
+      </Link>
       <BottomNavigationAction
         label="Search"
         value="search"
