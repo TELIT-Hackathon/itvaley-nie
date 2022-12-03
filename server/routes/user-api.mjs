@@ -34,7 +34,7 @@ userApi.post('/login', async (req, res) => {
             res.json({token})
         }
         else {
-            res.status(406).send("Invalid")
+            throw new Error()
         }
     }
     catch(err) {
