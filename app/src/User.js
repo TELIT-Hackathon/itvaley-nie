@@ -24,7 +24,6 @@ export default class User extends React.Component {
     } 
 
     render() {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaa ' + this.context.loggedIn())
         return (this.context.loggedIn() ? <>
             <DashboardContent/>
             <Switch>
@@ -38,7 +37,7 @@ export default class User extends React.Component {
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
         </> : <>
-            <Redirect to='/signin'/>
+            <Redirect to='/login'/>
         </>)
     }
 }
