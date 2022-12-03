@@ -2,50 +2,55 @@ import { Router } from 'express'
 import User from '../Models/User.mjs'
 import Session from '../Models/Session.mjs'
 import crypto from 'crypto'
+import { protectedAsyncFunc, protectedFunc } from '../helpers.mjs'
 
 export const userApi = new Router()
 
 const hashPassword = password => crypto.createHash('sha256').update(password).digest('hex')
 const generateToken = () => crypto.randomBytes(64).toString('hex')
 
-userApi.get('/me', (req, res) => {
-    res.send(req.user);
-});
-userApi.put('/me', (req, res) => {
-    User.updateOne({id:req.user.id}, req.body)
+userApi.get('/me', protectedFunc((req, res) => {
+    res.json(req.user);
+})); //Yaa
+userApi.put('/me', protectedAsyncFunc(async (req, res) => {
+    req.body.id = undefined
+    req.body._id = undefined
+    await User.updateOne({id:req.user.id}, req.body).exec()
     res.send("OK")
-});
-userApi.get('/:id', async (req, res) => {
-    const user = await User.findOne({id:req.params.id})
+})); //Yaa
+userApi.get('/contacts', protectedAsyncFunc(async (req, res) => {
+    console.log(req.user.contacts)
+    const contacts = await User.find({_id: req.user.contacts}).exec()
+    res.json(contacts)
+})); //Yaa
+userApi.get('/:id', protectedAsyncFunc(async (req, res) => {
+    const user = await User.findById(req.params.id).exec()
     res.json(user)
-});
-userApi.post('/login', async (req, res) => {
-    try {
-        const username = req.body.username || ''
-        const password = req.body.password || ''
+})); //Yaa
 
-        const user = await User.findOne({username: username})
-        if(user && user.password === hashPassword(password)) {
-            const token = generateToken()
 
-            const session = new Session({user: user.id, token})
-            await session.save()
-            
-            res.json({token})
-        }
-        else {
-            throw new Error("wrong data")
-        }
+userApi.post('/login', protectedAsyncFunc(async (req, res) => {
+    const username = req.body.username || ''
+    const password = req.body.password || ''
+
+    const user = await User.findOne({username: username}).exec()
+    if(user && user.password === hashPassword(password)) {
+        const token = generateToken()
+
+        const session = new Session({user: user.id, token})
+        await session.save()
+        
+        res.json({token})
     }
-    catch(err) {
-        res.status(500).send(err)
+    else {
+        throw new Error("wrong data")
     }
-})
-userApi.post('/logout', (req, res) => {
+})) //Yaa
+userApi.post('/logout', protectedFunc((req, res) => {
     Session.findOne({user: req.user.id}).remove().exec()
-    res.end()
-})
-userApi.post('/register', async (req, res) => {
+    res.send("OK")
+})) //Yaa
+userApi.post('/register', protectedAsyncFunc(async (req, res) => {
     const data = req.body
     console.log(data)
 
@@ -69,4 +74,4 @@ userApi.post('/register', async (req, res) => {
     await newUser.save()
     
     res.send("OK")
-});
+})); //Yaa
