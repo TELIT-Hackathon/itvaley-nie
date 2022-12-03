@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
+import { Dataset } from '@mui/icons-material';
 
 const theme = createTheme();
 
@@ -25,11 +26,12 @@ export default function SignUp() {
     const jsondata = {
       username: data.get('username'),
       password: data.get('password'),
-      firstname: data.get(),
-      lastname: data.get(),
-      
-      role: data.get('role'),
+      title: data.get("title"),
+      picture: data.get("picture"),
+      firstname: data.get("firstname"),
+      lastname: data.get("lastname"),
       location: data.get('location'),
+      role: data.get('role'),
     };
     fetch(`${api.URL}/api/user/register`, {
     method: 'POST',

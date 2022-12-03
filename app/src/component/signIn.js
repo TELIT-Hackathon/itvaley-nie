@@ -24,7 +24,7 @@ export default function SignIn() {
     method: 'POST',
     body: jsondata,
     headers: {"Content-Type" : "application/json",
-    "Access-Control-Allow-Origin":"*" }
+              "Access-Control-Allow-Origin":"*" }
     }).then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);

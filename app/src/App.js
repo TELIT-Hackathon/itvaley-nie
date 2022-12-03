@@ -21,8 +21,8 @@ function App() {
           Hello madafaka
         </a>
       </header> */}
-      <LogIn/>
-      {/* <SignUp/> */}
+      {/* <LogIn/> */}
+      <SignUp/>
       {/*<Dashboard/>*/}
     </div>
   );
