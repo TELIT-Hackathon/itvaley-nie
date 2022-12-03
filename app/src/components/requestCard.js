@@ -13,11 +13,11 @@ export default class RequestCard extends React.Component {
                             R
                         </Avatar>
                     }
-                    title={this.props.title}
+                    title={this.props.request.title}
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        {this.props.description}
+                        {this.props.request.description}
                     </Typography>
                 </CardContent>
             </Card>
