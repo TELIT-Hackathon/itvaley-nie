@@ -31,7 +31,7 @@ projectApi.get('/:id', protectedAsyncFunc(async (req, res) => {
     const project = await Project.findById(req.params.id).exec()
     res.json(project)
 }))
-projectApi.put('/:id', protectedAsyncFunc(async (req, res) => {
+projectApi.patch('/:id', protectedAsyncFunc(async (req, res) => {
     req.body.id = undefined
     await Project.updateOne({_id:req.params.id}, req.body).exec()
     res.send("OK")

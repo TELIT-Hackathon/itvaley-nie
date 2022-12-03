@@ -17,7 +17,7 @@ userApi.get('/all', protectedAsyncFunc(async (req, res) => {
 userApi.get('/me', protectedFunc((req, res) => {
     res.json(req.user);
 }, true)); //Yaa
-userApi.put('/me', protectedAsyncFunc(async (req, res) => {
+userApi.patch('/me', protectedAsyncFunc(async (req, res) => {
     req.body.id = undefined
     req.body._id = undefined
     await User.updateOne({id:req.user.id}, req.body).exec()
@@ -34,7 +34,7 @@ userApi.get('/:id', protectedAsyncFunc(async (req, res) => {
     res.json(user)
 })); //Yaa
 // JUST FOR TESTING!!!
-userApi.put('/:id', protectedAsyncFunc(async (req, res) => {
+userApi.patch('/:id', protectedAsyncFunc(async (req, res) => {
     await User.updateOne({_id:req.params.id}, req.body).exec()
     res.send("OK")
 })); //Yaa
