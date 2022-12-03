@@ -10,6 +10,8 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.7.5",
+    "randomuser": "^1.2.2"
   }
 }
