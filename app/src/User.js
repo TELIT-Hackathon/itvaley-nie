@@ -17,17 +17,19 @@ import { Typography } from '@mui/material';
 export default class User extends React.Component {
     render() {
         return (this.context.loggedIn() ? <>
+            <Box sx={{height: 'calc(100% - 60px)', overflowY: 'scroll', overflowX: 'hidden'}}>
+                <Switch>
+                    <Route path="/user/dashboard">
+                        DASHBOARD
+                    </Route>
+                    <Route path="/user/contacts"><Contacts/></Route>
+                    <Route path="/user/profile"><Profile/></Route>
+                    <Route path="/user/message"><Message/></Route>
+                    <Route path="/user/requests"><Requests/></Route>
+                    <Route path="*" element={<Typography>NENI TAKE</Typography>} />
+                </Switch>
+            </Box>
             <DashboardContent/>
-            <Switch>
-                <Route path="/user/dashboard">
-                    DASHBOARD
-                </Route>
-                <Route path="/user/contacts"><Contacts/></Route>
-                <Route path="/user/profile"><Profile/></Route>
-          		<Route path="/user/message"><Message/></Route>
-          		<Route path="/user/requests"><Requests/></Route>
-                <Route path="*" element={<Typography>NENI TAKE</Typography>} />
-            </Switch>
         </> : <>
             <Redirect to='/login'/>
         </>)
