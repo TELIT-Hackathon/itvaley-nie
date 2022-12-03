@@ -21,7 +21,7 @@ Object.keys(cats).forEach(name => {
     cat.name = name
     categories.push(cat)
 
-    Object.keys(cats[name].tags).forEach(name => {
+    cats[name].tags.forEach(name => {
         const c = new Category()
         c.name = name
         c.parent = cat.id
