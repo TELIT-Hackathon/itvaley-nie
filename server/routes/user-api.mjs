@@ -1,15 +1,20 @@
-import { Router } from "express";
-import User from "../Models/User.mjs";
+import { Router } from "express"
+import User from "../Models/User.mjs"
 
-export const userApi = new Router();
+export const userApi = new Router()
 userApi.get('/me', (req, res) => {
-    res.send(`GET data about me`);
+    res.send(req.user);
 });
-userApi.get('/:id', (req, res) => {
-    res.send(`GET data about ${req.params.id}`);
+userApi.update('/me', (req, res) => {
+    User.updateOne({id:req.user.id}, req.body)
+    res.send("OK")
+});
+userApi.get('/:id', async (req, res) => {
+    const user = await User.findOne({id:req.params.id})
+    res.json(user)
 });
 userApi.post('/login', (req, res) => {
-    res.send(`GET data about ${req.params.id}`);
+    res.send(`GET data about ${req.params.id}`)
 });
 userApi.post('/register', async (req, res) => {
     const data = req.body;
