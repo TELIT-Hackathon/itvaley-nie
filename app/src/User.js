@@ -7,6 +7,7 @@ import Requests from './screens/requests';
 import Profile from './components/profile';
 import Message from './components/message';
 import Box from '@mui/material/Box';
+import RequestForm from './components/requestForm';
 
 import { Context } from './api';
 
@@ -26,6 +27,7 @@ export default class User extends React.Component {
                 <Route path="/user/profile"><Profile/></Route>
           		<Route path="/user/message"><Message/></Route>
           		<Route path="/user/requests"><Requests/></Route>
+          		<Route path="/user/requestform"><RequestForm/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
         </> : <>
