@@ -16,11 +16,12 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
 import axios from 'axios'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -42,6 +43,7 @@ export default function SignUp() {
     .then(function (response) {
       // handle success
       console.log(response);
+      navigate("/dashboard")
     })
     .catch(function (error) {
       // handle error
@@ -150,7 +152,6 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Link to="/dashboard" relative="path">
               <Button
                 type="submit"
                 fullWidth
@@ -159,7 +160,6 @@ export default function SignUp() {
               >
                 Sign Up
               </Button>
-            </Link>
           </Box>
         </Box>
       </Container>

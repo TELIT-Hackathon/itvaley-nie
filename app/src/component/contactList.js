@@ -5,12 +5,15 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
+import api from "../api"
+import axios from 'axios'
+
 
 export default class AlignItemsList extends React.Component {
     constructor(props) {
         super(props)
 
+        
         this.state  = {
             contacts: [
                 {
@@ -30,6 +33,22 @@ export default class AlignItemsList extends React.Component {
                 }
             ]
         }
+    }
+
+    componentDidMount() {
+        axios({
+            method: 'get',
+            url: `${api.URL}/api/user/contacts`,
+            headers: {"Authorization": ""}
+          })
+          .then(function (response) {
+            // handle success
+            console.log(response);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
     }
 
     render() {
