@@ -27,21 +27,12 @@ export default class User extends React.Component {
                     <Route path="/user/profile"><Profile/></Route>
                     <Route path="/user/message"><Message/></Route>
                     <Route path="/user/requests"><Requests/></Route>
+                    <Route path="/user/requestform"><RequestForm/></Route>
                     <Route path="*" element={<Typography>NENI TAKE</Typography>} />
                 </Switch>
             </Box>
             <DashboardContent/>
-            <Switch>
-                <Route path="/user/dashboard">
-                    DASHBOARD
-                </Route>
-                <Route path="/user/contacts"><Contacts/></Route>
-                <Route path="/user/profile"><Profile/></Route>
-          		<Route path="/user/message"><Message/></Route>
-          		<Route path="/user/requests"><Requests/></Route>
-          		<Route path="/user/requestform"><RequestForm/></Route>
-                <Route path="*" element={<Typography>NENI TAKE</Typography>} />
-            </Switch>
+            
         </> : <>
             <Redirect to='/login'/>
         </>)
