@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import express from 'express'
-import { tagsApi } from './Routes/tags-api.mjs'
+import { tagsApi } from './Routes/tagsApi.mjs'
 import { processUser } from './login.mjs'
 import mongoose from 'mongoose'
-import { userApi } from './Routes/user-api.mjs'
+import { userApi } from './Routes/userApi.mjs'
 
 await mongoose.connect('mongodb+srv://admin:aJlXDjXh6dLBUhWV@cluster0.ijfjind.mongodb.net/test')
 
