@@ -31,16 +31,9 @@ export default class App extends React.Component {
 							<Route path="/register"><SignUp/></Route>
 							<Route path="/login"><LogIn/></Route>
 							<Route path="/user"><User/></Route>
-							<Route path="*" element={<Typography>NENI TAKE</Typography>} />
-							<Route path="/">
-								<a
-									className="App-link"
-									href="https://reactjs.org"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									Hello madafaka
-								</a>
+							{/* <Route path="*" element={<Typography>NENI TAKE</Typography>} /> */}
+							<Route path="*">
+                <HomeScreen/>
 							</Route>
 						</Switch>
 					</BrowserRouter>
