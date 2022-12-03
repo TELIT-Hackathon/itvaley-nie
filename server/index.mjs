@@ -23,6 +23,11 @@ baseRouter.use('/api/tags', tagsApi)
 baseRouter.use('/api/user', userApi)
 
 //let db = await mongoose.connect('mongodb://10.234.7.83:27017/hk22')
+baseRouter.use(async (req, res, next) => {
+    res.append("Access-Control-Allow-Origin", "*")
+
+    next()
+})
 
 app.use('/', baseRouter)
 
