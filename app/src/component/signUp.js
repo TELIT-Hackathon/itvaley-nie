@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import api from "../api"
 
 const theme = createTheme();
 
@@ -21,9 +22,24 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const jsondata = {
+      username: data.get('username'),
       password: data.get('password'),
+      firstname: data.get(),
+      lastname: data.get(),
+      
+      role: data.get('role'),
+      location: data.get('location'),
+    };
+    fetch(`${api.URL}/api/user/register`, {
+    method: 'POST',
+    body: JSON.stringify(jsondata)
+    }).then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     });
   };
 

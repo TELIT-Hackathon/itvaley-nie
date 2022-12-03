@@ -34,7 +34,7 @@ userApi.post('/login', async (req, res) => {
             res.json({token})
         }
         else {
-            throw new Error()
+            throw new Error("wrong data")
         }
     }
     catch(err) {
