@@ -13,11 +13,8 @@ import FormLabel from '@mui/material/FormLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
 import axios from 'axios'
-
-const theme = createTheme();
 
 export default function SignUp() {
   const handleSubmit = (event) => {
@@ -49,9 +46,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs" sx={{height: '100%'}}>
-        <CssBaseline />
         <Box
           sx={{
             display: 'flex',
@@ -69,6 +64,5 @@ export default function SignUp() {
           </Typography>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }

@@ -6,10 +6,15 @@ import HomeScreen from './component/homeScreen';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-	function App() {
+
+const theme = createTheme();
+
+function App() {
 	return (
-		<BrowserRouter className="App" sx={{height: '100vh'}}>
+		<ThemeProvider theme={theme}>
+		<BrowserRouter className="App">
 		<Routes>
 			<Route path="/">
 				<Route index element={
@@ -22,7 +27,7 @@ import { Typography } from '@mui/material';
 						Hello madafaka
 					</a>
 				} />
-        <Route path="home" element={<HomeScreen/>} />
+				<Route path="home" element={<HomeScreen/>} />
 				<Route path="dashboard" element={<Dashboard/>} />
 				<Route path="register" element={<SignUp/>} />
 				<Route path="login" element={<LogIn/>} />
@@ -30,7 +35,8 @@ import { Typography } from '@mui/material';
 			</Route>
 		</Routes>
 		</BrowserRouter>
+		</ThemeProvider>
 	);
-	}
+}
 
 export default App;
