@@ -29,7 +29,7 @@ requestApi.get('/:id', protectedAsyncFunc(async (req, res) => {
     const request = await Request.findById(req.params.id).exec()
     res.json(request)
 }))
-requestApi.put('/:id', protectedAsyncFunc(async (req, res) => {
+requestApi.patch('/:id', protectedAsyncFunc(async (req, res) => {
     req.body.id = undefined
     await Request.updateOne({_id:req.params.id}, req.body).exec()
     res.send("OK")
