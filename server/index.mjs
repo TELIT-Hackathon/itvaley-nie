@@ -18,6 +18,11 @@ baseRouter.use(async (req, res, next) => {
 
     next()
 })
+baseRouter.use(async (req, res, next) => {
+    res.append("Access-Control-Allow-Origin", "*")
+
+    next()
+})
 
 baseRouter.use('/api/tags', tagsApi)
 baseRouter.use('/api/user', userApi)
