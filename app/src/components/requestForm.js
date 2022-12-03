@@ -11,24 +11,34 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
 import axios from 'axios'
 import { Link, withRouter } from "react-router-dom"
-
+import Chip from '@mui/material/Chip';
 import { Context } from '../api';
 
 class RequestForm extends React.Component {
+  constructor(props) {
+    super(props)
+
+    
+    this.state  = {
+        contacts: []
+    }
+}
+
+componentDidMount () {
+    this.context.request('/tags', {
+        method: 'get',
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        this.setState({contacts:response.data})
+      }.bind(this))
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+}
   render() {
-    const handleSubmit = (api, event) => {
-      event.preventDefault()
-
-      const data = new FormData(event.currentTarget)
-      
-      const history = this.props.history
-
-      api.login(data.get('username'), data.get('password'))
-        .then(() => {
-          history.push('/user/dashboard')
-        })
-    };
-
     return (
         <Context.Consumer>
           {api => (
@@ -46,8 +56,10 @@ class RequestForm extends React.Component {
                 <Typography component="h1" variant="h3">
                   Create Request
                 </Typography>
-                <Box component="form" onSubmit={evt => handleSubmit(api, evt)} noValidate sx={{ mt: 1 }}>
-                  <TextField
+                <Typography component="h1" variant="h5">
+                  Request Title
+                </Typography>
+                <TextField
                     margin="normal"
                     required
                     fullWidth
@@ -56,7 +68,10 @@ class RequestForm extends React.Component {
                     name="title"
                     autoFocus
                   />
-                  <TextField
+                <Typography component="h1" variant="h5">
+                  Description
+                </Typography>
+                <TextField
                     margin="normal"
                     required
                     fullWidth
@@ -64,15 +79,23 @@ class RequestForm extends React.Component {
                     label="Description"
                     id="description"
                   />
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Create
-                    </Button>
-                </Box>
+                <Typography component="h1" variant="h5">
+                  Skills
+                </Typography>
+
+                {chipData.map((data) => {
+                let icon;
+
+                return (
+                  <ListItem key={data.key}>
+                    <Chip
+                      icon={icon}
+                      label={data.label}
+                    />
+                  </ListItem>
+                  );
+                })}
+
               </Box>
             </Container>
           )}
