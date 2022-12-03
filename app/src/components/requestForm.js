@@ -52,7 +52,6 @@ componentDidMount () {
                   alignItems: 'center',
                 }}
               >
-                
                 <Typography component="h1" variant="h3">
                   Create Request
                 </Typography>
@@ -82,7 +81,7 @@ componentDidMount () {
                 <Typography component="h1" variant="h5">
                   Skills
                 </Typography>
-
+{/* 
                 {chipData.map((data) => {
                 let icon;
 
@@ -94,7 +93,7 @@ componentDidMount () {
                     />
                   </ListItem>
                   );
-                })}
+                })} */}
 
               </Box>
             </Container>
