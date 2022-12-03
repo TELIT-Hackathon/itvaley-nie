@@ -76,7 +76,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <Link to="/dashboard" relative="path">
+            <Link to="/user/dashboard" relative="path">
               <Button
                 type="submit"
                 fullWidth
