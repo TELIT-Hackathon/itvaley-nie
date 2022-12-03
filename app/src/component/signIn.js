@@ -22,7 +22,9 @@ export default function SignIn() {
     };
     fetch(`${api.URL}/api/user/login`, {
     method: 'POST',
-    body: jsondata
+    body: jsondata,
+    headers: {"Content-Type" : "application/json",
+    "Access-Control-Allow-Origin":"*" }
     }).then((response) => response.json())
     .then((data) => {
       console.log('Success:', data);
