@@ -19,6 +19,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import SearchIcon from '@mui/icons-material/Search';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonIcon from '@mui/icons-material/Person';
+import Button from '@mui/material/Button';
 
 //import { mainListItems, secondaryListItems } from './listItems';
 //import Chart from './Chart';
@@ -34,11 +35,14 @@ function LabelBottomNavigation() {
 
   return (
     <BottomNavigation sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} value={value} onChange={handleChange}>
-      <BottomNavigationAction
-        label="Home"
-        value="home"
-        icon={<HomeIcon />}
-      />
+      <Link to="/home">
+        <BottomNavigationAction
+          label="Home"
+          value="home"
+          icon={<HomeIcon />}
+        />
+      </Link>
+      
       <BottomNavigationAction
         label="Request"
         value="request"
@@ -49,16 +53,28 @@ function LabelBottomNavigation() {
         value="search"
         icon={<SearchIcon />}
       />
-      <BottomNavigationAction 
-        label="Contacts" 
-        value="contacts" 
-        icon={<PeopleAltIcon />} 
-      />
+      <Link to="/contacts">
+        <BottomNavigationAction 
+          label="Contacts" 
+          value="contacts" 
+          icon={<PeopleAltIcon />} 
+        />
+      </Link>
       <BottomNavigationAction 
         label="Profile" 
         value="profile" 
         icon={<PersonIcon />} 
       />
+      <Link to="/dashboard" relative="path">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Sign In
+        </Button>
+      </Link>
     </BottomNavigation>
   );
 }
