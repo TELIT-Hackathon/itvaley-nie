@@ -5,6 +5,8 @@ export const processUser = async req => {
     const auth = req.get('Authorization')
 
     const session = await Session.findOne({'token': auth || ''})
+    if(!session)
+        return null
 
     return await User.findOne({'id': session.user})
 }
