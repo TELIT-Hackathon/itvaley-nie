@@ -1,4 +1,4 @@
-{
+export default {
     "algorithms": {
       "tags": [
         "sort"
