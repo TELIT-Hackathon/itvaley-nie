@@ -1,4 +1,5 @@
 import './App.css';
+import Dashboard from './component/homeScreen';
 import LogIn from './component/signIn.js';
 import SignUp from './component/signUp.js';
 

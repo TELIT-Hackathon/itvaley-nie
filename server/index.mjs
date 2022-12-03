@@ -13,6 +13,7 @@ app.use(express.json()) // for parsing application/json
 const baseRouter = new Router()
 baseRouter.use(async (req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.originalUrl}`)
+    console.log(`Body ${JSON.stringify(req.body)}`)
 
     req.user = await processUser(req)
 
