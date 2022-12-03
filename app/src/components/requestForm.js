@@ -12,26 +12,29 @@ import api from "../api"
 import axios from 'axios'
 import { Link, withRouter } from "react-router-dom"
 import Chip from '@mui/material/Chip';
+import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
 import { Context } from '../api';
 
-class RequestForm extends React.Component {
+
+export default class RequestForm extends React.Component {
   constructor(props) {
     super(props)
 
     
     this.state  = {
-        contacts: []
+        tags: []
     }
 }
 
 componentDidMount () {
-    this.context.request('/tags', {
+    this.context.request('/tags/categories', {
         method: 'get',
       })
       .then(function (response) {
         // handle success
         console.log(response);
-        this.setState({contacts:response.data})
+        this.setState({tags:response.data})
       }.bind(this))
       .catch(function (error) {
         // handle error
@@ -62,6 +65,7 @@ componentDidMount () {
                     margin="normal"
                     required
                     fullWidth
+                    multiline
                     id="title"
                     label="Request title"
                     name="title"
@@ -74,6 +78,7 @@ componentDidMount () {
                     margin="normal"
                     required
                     fullWidth
+                    multiline
                     name="description"
                     label="Description"
                     id="description"
@@ -81,26 +86,34 @@ componentDidMount () {
                 <Typography component="h1" variant="h5">
                   Skills
                 </Typography>
-{/* 
-                {chipData.map((data) => {
-                let icon;
-
-                return (
-                  <ListItem key={data.key}>
-                    <Chip
-                      icon={icon}
-                      label={data.label}
+                <Autocomplete
+                  multiple
+                  id="tags-standard"
+                  options={this.state.tags}
+                  getOptionLabel={(option) => option.name}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Tags"
                     />
-                  </ListItem>
-                  );
-                })} */}
-
+                    )}
+                  />
+                  <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Create
+                    </Button>
               </Box>
             </Container>
           )}
         </Context.Consumer>
+
+        
     );
   }
 }
-
-export default withRouter(RequestForm)
+RequestForm.contextType = Context
