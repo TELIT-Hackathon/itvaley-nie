@@ -1,5 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 const Api = React.createContext()
 
@@ -7,16 +8,18 @@ export {Api as Context}
 
 export default Api.Consumer
 
-class ApiProvider extends React.Component {
+class ApiProvideraa extends React.Component {
     constructor(props) {
         super(props)
 
         this.URL = 'http://localhost:8080/api'
         
         this.state = {
-            token: null,
+            token: localStorage.getItem('token'),
             user: null,
         }
+
+        this.tryGetMe()
     }
 
     loggedIn = () => {
@@ -24,7 +27,6 @@ class ApiProvider extends React.Component {
     }
 
     request = (path, config = {}) => {
-        console.log(this.state.token)
         return axios({
             ...config,
             url: `${this.URL}${path}`,
@@ -42,23 +44,28 @@ class ApiProvider extends React.Component {
                 data: { username, password }
             })
 
+            const token = tokenRequest.data.token
+
+            localStorage.setItem('token', token)
+
             this.setState({
                 token: tokenRequest.data.token
-            })
+            }, this.tryGetMe)
+        }
+        catch(err) { error(err) }
+    }
 
-            this.state.token = tokenRequest.data.token
-
+    tryGetMe = async () => {
+        try {
             const meRequest = await this.request('/user/me', {
                 method: 'GET'
             })
-
-            console.log(meRequest.data)
 
             this.setState({
                 user: meRequest.data
             })
         }
-        catch(err) { error(err) }
+        catch(err) { console.log(err) }
     }
 
     register = async (data, error = err => {}) => {
@@ -78,11 +85,14 @@ class ApiProvider extends React.Component {
 
     logout = async () => {
         // await this.request('/user/logout')
+        localStorage.removeItem('token')
         this.setState({
             token: null,
             user: null,
         })
     }
+
+    redirect = url => this.props.history.push(url)
 
     render = () => {
         return <Api.Provider value={{
@@ -91,10 +101,13 @@ class ApiProvider extends React.Component {
             request: this.request,
             login: this.login,
             logout: this.logout,
-            register: this.register
+            register: this.register,
+            redirect: this.redirect
         }}>{this.props.children}</Api.Provider>
     }
 }
+
+const ApiProvider = withRouter(ApiProvideraa)
 
 export {
     ApiProvider

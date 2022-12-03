@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
 import { Context } from '../api';
+import { Button } from '@mui/material';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -12,9 +13,10 @@ export default class Profile extends React.Component {
     } 
     render() {
         return <Context.Consumer>
-            {api => (
+            {api => <>
                 <Typography>{JSON.stringify(api.user)}</Typography>
-            )}
+                <Button onClick={api.logout}>LOGOUT</Button>
+            </>}
         </Context.Consumer>;
     }
 }
