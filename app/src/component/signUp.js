@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
+import axios from 'axios'
 
 const theme = createTheme();
 
@@ -25,22 +26,26 @@ export default function SignUp() {
     const jsondata = {
       username: data.get('username'),
       password: data.get('password'),
-      firstname: data.get(),
-      lastname: data.get(),
-      
-      role: data.get('role'),
+      title: data.get("title"),
+      picture: data.get("picture"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
       location: data.get('location'),
+      role: data.get('role'),
     };
-    fetch(`${api.URL}/api/user/register`, {
-    method: 'POST',
-    body: JSON.stringify(jsondata)
-    }).then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
+    axios({
+      method: 'post',
+      url: `${api.URL}/api/user/register`,
+      data: jsondata
     })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
   };
 
   return (
