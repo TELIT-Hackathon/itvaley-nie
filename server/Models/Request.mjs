@@ -6,11 +6,12 @@ const ObjectId = Schema.ObjectId
 const RequestSchema = new Schema({
     title: String,
     description: String,
-    createdBy: ObjectId,
     categories: [ObjectId],
     interestedUsers: [ObjectId],
     activities: [ObjectId],
-    closedAt: Date
+    closedAt: Date,
+    createdBy: ObjectId,
+    isInProject: Boolean
 })
 
 const Request = mongoose.model('Request', RequestSchema)

@@ -32,7 +32,7 @@ export default function SignIn() {
     .then(function (response) {
       // handle success
       console.log(response);
-      navigate("/user/dashboard")
+      navigate("/dashboard")
     })
     .catch(function (error) {
       // handle error
@@ -41,7 +41,6 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -52,7 +51,8 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -63,9 +63,9 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="username"
-              label="Username"
-              name="username"
+              id="projectName"
+              label="Project Name"
+              name="projectName"
               autoFocus
             />
             <TextField
@@ -86,9 +86,8 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-          </Box>
+          </Box> */}
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }
