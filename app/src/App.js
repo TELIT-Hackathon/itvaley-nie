@@ -3,7 +3,9 @@ import Dashboard from './component/dashboard';
 import LogIn from './component/signIn.js';
 import SignUp from './component/signUp.js';
 import HomeScreen from './component/homeScreen.js';
-import Contacts from './component/contactList';
+import Contacts from './component/contactList.js';
+import Profile from './component/profile.js';
+import Message from './component/message.js';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Typography } from '@mui/material';
@@ -33,6 +35,8 @@ function App() {
 					<Route path="dashboard" element={<Dashboard/>} />
 					<Route path="register" element={<SignUp/>} />
 					<Route path="login" element={<LogIn/>} />
+          <Route path="profile" element={<Profile/>} />
+          <Route path="message" element={<Message/>} />
 					<Route path="*" element={<Typography>NENI TAKE</Typography>} />
 				</Route>
 			</Routes>

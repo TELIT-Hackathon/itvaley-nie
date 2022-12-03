@@ -60,11 +60,13 @@ function LabelBottomNavigation() {
           icon={<PeopleAltIcon />} 
         />
       </Link>
-      <BottomNavigationAction 
-        label="Profile" 
-        value="profile" 
-        icon={<PersonIcon />} 
-      />
+      <Link to="/profile">
+          <BottomNavigationAction 
+            label="Profile" 
+            value="profile" 
+            icon={<PersonIcon />} 
+          />
+        </Link>
     </BottomNavigation>
   );
 }
