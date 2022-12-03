@@ -3,6 +3,8 @@ import axios from 'axios'
 
 const Api = React.createContext()
 
+export {Api as Context}
+
 export default Api.Consumer
 
 class ApiProvider extends React.Component {
@@ -10,7 +12,7 @@ class ApiProvider extends React.Component {
         super(props)
 
         this.URL = 'http://localhost:8080/api'
-            
+        
         this.state = {
             token: null,
             user: null,
@@ -59,9 +61,23 @@ class ApiProvider extends React.Component {
         catch(err) { error(err) }
     }
 
+    register = async (data, error = err => {}) => {
+        try {
+            const tokenRequest = await this.request('/user/register', {
+                method: 'POST',
+                data
+            })
+
+            this.setState({
+                user: tokenRequest.data,
+                token: tokenRequest.data.token
+            })
+        }
+        catch(err) { error(err) }
+    }
+
     logout = async () => {
         // await this.request('/user/logout')
-
         this.setState({
             token: null,
             user: null,
@@ -75,6 +91,7 @@ class ApiProvider extends React.Component {
             request: this.request,
             login: this.login,
             logout: this.logout,
+            register: this.register
         }}>{this.props.children}</Api.Provider>
     }
 }

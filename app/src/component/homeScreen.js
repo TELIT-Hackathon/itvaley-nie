@@ -8,9 +8,9 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import { Link } from "react-router-dom";
 
-export default function SignUp() {
-  
-  return (
+export default class SignUp extends React.Component {
+  render() {
+    return (
       <Container component="main" maxWidth="xs" sx={{height: '100%'}}>
         <Box
           sx={{
@@ -39,4 +39,5 @@ export default function SignUp() {
         </Box>
       </Container>
   );
+  }
 }

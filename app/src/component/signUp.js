@@ -13,156 +13,157 @@ import FormLabel from '@mui/material/FormLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import api from "../api"
-import axios from 'axios'
-import { Link, useHistory } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom"
 
-const theme = createTheme();
+import { Context } from '../api';
 
-export default function SignUp() {
-  const history = useHistory()
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const jsondata = {
-      username: data.get('username'),
-      password: data.get('password'),
-      title: data.get("title"),
-      picture: data.get("picture"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      location: data.get('location'),
-      role: data.get('role'),
+class SignUp extends React.Component {
+  render() {
+    const handleSubmit = (api, event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const jsondata = {
+        username: data.get('username'),
+        password: data.get('password'),
+        title: data.get("title"),
+        picture: data.get("picture"),
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        location: data.get('location'),
+        role: data.get('role'),
+      };
+
+      const history = this.props.history
+
+      api.register(jsondata)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        history.push("/user/dashboard")
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
     };
-    axios({
-      method: 'post',
-      url: `${api.URL}/api/user/register`,
-      data: jsondata
-    })
-    .then(function (response) {
-      // handle success
-      console.log(response);
-      history.push("/user/dashboard")
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-  };
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
-                <TextField
-                  autoComplete="given-name"
-                  name="title"
-                  fullWidth
-                  id="title"
-                  label="Title"
-                  autoFocus
-                />
-              </Grid>
+  
+    return (
+      <Context.Consumer>
+        {api => (
+          <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <Box component="form" noValidate onSubmit={evt => handleSubmit(api, evt)} sx={{ mt: 3 }}>
+              <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                />
+                  <TextField
+                    autoComplete="given-name"
+                    name="title"
+                    fullWidth
+                    id="title"
+                    label="Title"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="location"
+                    label="Location"
+                    name="location"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="picture"
+                    label="Avatar"
+                    name="picture"
+                  />
+                </Grid>
+                <FormControl>
+                  <FormLabel id="role"></FormLabel>
+                  <RadioGroup
+                  row
+                      defaultValue="student"
+                      name="role"
+                  >
+                      <FormControlLabel value="student" control={<Radio />} label="Student" />
+                      <FormControlLabel value="teacher" control={<Radio />} label="Teacher" />
+                      <FormControlLabel value="expert" control={<Radio />} label="Expert" />
+                  </RadioGroup>
+                  </FormControl>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  required
+                <Button
+                  type="submit"
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="location"
-                  label="Location"
-                  name="location"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="picture"
-                  label="Avatar"
-                  name="picture"
-                />
-              </Grid>
-              <FormControl>
-                <FormLabel id="role"></FormLabel>
-                <RadioGroup
-                row
-                    defaultValue="student"
-                    name="role"
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
                 >
-                    <FormControlLabel value="student" control={<Radio />} label="Student" />
-                    <FormControlLabel value="teacher" control={<Radio />} label="Teacher" />
-                    <FormControlLabel value="expert" control={<Radio />} label="Expert" />
-                </RadioGroup>
-                </FormControl>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-            </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign Up
-              </Button>
+                  Sign Up
+                </Button>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
-  );
+        </Container>
+        )}
+      </Context.Consumer>
+    );
+  }
 }
+
+export default withRouter(SignUp)
