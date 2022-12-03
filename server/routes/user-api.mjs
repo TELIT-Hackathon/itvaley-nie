@@ -11,7 +11,7 @@ const generateToken = () => crypto.randomBytes(64).toString('hex')
 userApi.get('/me', (req, res) => {
     res.send(req.user);
 });
-userApi.update('/me', (req, res) => {
+userApi.put('/me', (req, res) => {
     User.updateOne({id:req.user.id}, req.body)
     res.send("OK")
 });
@@ -60,9 +60,13 @@ userApi.post('/register', async (req, res) => {
         categories: [],
         role: data.role,
         location: data.location,
-
-    });
-    await newUser.save();
+        picture:{
+            large: "",
+            medium: "",
+            thumbnail: ""
+        }
+    })
+    await newUser.save()
     
-    res.send("OK");
+    res.send("OK")
 });
