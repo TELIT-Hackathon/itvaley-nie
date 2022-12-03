@@ -23,7 +23,7 @@ class ApiProvideraa extends React.Component {
     }
 
     loggedIn = () => {
-        return this.user != null
+        return this.state.user != null
     }
 
     request = (path, config = {}) => {

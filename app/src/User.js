@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 
 import { Context } from './api';
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { Typography } from '@mui/material';
 
 
@@ -22,8 +22,10 @@ export default class User extends React.Component {
             recents: null
         }
     } 
+
     render() {
-        return <>
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaa ' + this.context.loggedIn())
+        return (this.context.loggedIn() ? <>
             <DashboardContent/>
             <Switch>
                 <Route path="/user/dashboard">
@@ -36,6 +38,9 @@ export default class User extends React.Component {
           		<Route path="request"><Request/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
-        </>;
+        </> : <>
+            <Redirect to='/signin'/>
+        </>)
     }
 }
+User.contextType = Context
