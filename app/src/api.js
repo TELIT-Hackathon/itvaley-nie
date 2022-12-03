@@ -16,7 +16,7 @@ class ApiProvideraa extends React.Component {
         
         this.state = {
             token: localStorage.getItem('token'),
-            user: null,
+            user: true,
         }
     }
 
@@ -67,7 +67,13 @@ class ApiProvideraa extends React.Component {
                 user: meRequest.data
             }, redirect ? (() => this.redirect('/user/dashboard')) : (() => {}))
         }
-        catch(err) { console.log(err) }
+        catch(err) { 
+            this.setState({
+                user: null
+            })
+                
+            console.log(err)
+        }
     }
 
     register = async (data, error = err => {}) => {
