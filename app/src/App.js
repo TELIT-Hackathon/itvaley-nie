@@ -23,34 +23,23 @@ export default class App extends React.Component {
     } 
     render() {
 		return (
-			<ApiProvider>
+			
 				<ThemeProvider theme={theme}>
 					<BrowserRouter className="App">
-						<Switch>
-							<Route path="/home"><HomeScreen/></Route>
-							<Route path="/register"><SignUp/></Route>
-							<Route path="/login"><LogIn/></Route>
-							<Route path="/user"><User/></Route>
-							<Route path="*">
-								<HomeScreen/>
-							</Route>
-						</Switch>
+						<ApiProvider>
+							<Switch>
+								<Route path="/home"><HomeScreen/></Route>
+								<Route path="/register"><SignUp/></Route>
+								<Route path="/login"><LogIn/></Route>
+								<Route path="/user"><User/></Route>
+								<Route path="*">
+									<HomeScreen/>
+								</Route>
+							</Switch>
+						</ApiProvider>
 					</BrowserRouter>
 				</ThemeProvider>
-
-				{/* NECHAJ MI TO JE MOJE */}
-				{/* <ApiConsumer>
-					{api => <button onClick={() => api.login('Pepperino1', 'abcd')}>LOGIN</button>}
-				</ApiConsumer>
-
-				<ApiConsumer>
-					{api => <button onClick={() => api.logout()}>LOGOUT</button>}
-				</ApiConsumer>
-				
-				<ApiConsumer>
-					{api => <p>{JSON.stringify(api.user)}</p>}
-				</ApiConsumer> */}
-		</ApiProvider>
+		
 		);
 	}
 }

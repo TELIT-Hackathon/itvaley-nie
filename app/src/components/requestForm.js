@@ -14,18 +14,18 @@ import { Link, withRouter } from "react-router-dom"
 
 import { Context } from '../api';
 
-class SignIn extends React.Component {
+class RequestForm extends React.Component {
   render() {
     const handleSubmit = (api, event) => {
       event.preventDefault()
 
       const data = new FormData(event.currentTarget)
       
-      const { redirect } = this.context
+      const history = this.props.history
 
-      this.context.login(data.get('username'), data.get('password'))
+      api.login(data.get('username'), data.get('password'))
         .then(() => {
-          redirect('/user/dashboard')
+          history.push('/user/dashboard')
         })
     };
 
@@ -42,31 +42,27 @@ class SignIn extends React.Component {
                   alignItems: 'center',
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                  Sign in
+                
+                <Typography component="h1" variant="h3">
+                  Create Request
                 </Typography>
                 <Box component="form" onSubmit={evt => handleSubmit(api, evt)} noValidate sx={{ mt: 1 }}>
                   <TextField
                     margin="normal"
                     required
                     fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
+                    id="title"
+                    label="Request title"
+                    name="title"
                     autoFocus
                   />
                   <TextField
                     margin="normal"
                     required
                     fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
+                    name="description"
+                    label="Description"
+                    id="description"
                   />
                     <Button
                       type="submit"
@@ -74,7 +70,7 @@ class SignIn extends React.Component {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      Sign In
+                      Create
                     </Button>
                 </Box>
               </Box>
@@ -84,6 +80,5 @@ class SignIn extends React.Component {
     );
   }
 }
-SignIn.contextType = Context
 
-export default SignIn
+export default withRouter(RequestForm)
