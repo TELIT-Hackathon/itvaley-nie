@@ -3,10 +3,13 @@ import * as React from 'react';
 import Dashboard from './component/dashboard';
 import Contacts from './component/contactList';
 import DashboardContent from './component/dashboard';
+import Request from './component/request';
+import Profile from './component/profile';
+import Message from './component/message';
 
-import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
+
+import { Route, Switch } from "react-router-dom";
 import { Typography } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 export default class User extends React.Component {
@@ -25,6 +28,8 @@ export default class User extends React.Component {
                 <Route path="/user/contacts"><Contacts/></Route>
                 <Route path="profile"><Profile/></Route>
           		<Route path="message"><Message/></Route>
+          		<Route path="contacts"><contactList/></Route>
+          		<Route path="request"><Request/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
         </>;

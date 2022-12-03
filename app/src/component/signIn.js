@@ -10,12 +10,12 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
 import axios from 'axios'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const navigate = useNavigate()
+  const history = useHistory()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,7 +32,7 @@ export default function SignIn() {
     .then(function (response) {
       // handle success
       console.log(response);
-      navigate("/user/dashboard")
+      history.push("/user/dashboard")
     })
     .catch(function (error) {
       // handle error
