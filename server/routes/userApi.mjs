@@ -9,20 +9,24 @@ export const userApi = new Router()
 const hashPassword = password => crypto.createHash('sha256').update(password).digest('hex')
 const generateToken = () => crypto.randomBytes(64).toString('hex')
 
+// 
+userApi.get('/all', protectedAsyncFunc(async (req, res) => {
+    res.json(await User.find().exec());
+})); //Yaa
 userApi.get('/me', protectedFunc((req, res) => {
     res.json(req.user);
-})); //Yaa
+}, true)); //Yaa
 userApi.put('/me', protectedAsyncFunc(async (req, res) => {
     req.body.id = undefined
     req.body._id = undefined
     await User.updateOne({id:req.user.id}, req.body).exec()
     res.send("OK")
-})); //Yaa
+}, true)); //Yaa
 userApi.get('/contacts', protectedAsyncFunc(async (req, res) => {
     console.log(req.user.contacts)
     const contacts = await User.find({_id: req.user.contacts}).exec()
     res.json(contacts)
-})); //Yaa
+}, true)); //Yaa
 userApi.get('/:id', protectedAsyncFunc(async (req, res) => {
     const user = await User.findById(req.params.id).exec()
     res.json(user)
@@ -49,7 +53,7 @@ userApi.post('/login', protectedAsyncFunc(async (req, res) => {
 userApi.post('/logout', protectedFunc((req, res) => {
     Session.findOne({user: req.user.id}).remove().exec()
     res.send("OK")
-})) //Yaa
+}, true)) //Yaa
 userApi.post('/register', protectedAsyncFunc(async (req, res) => {
     const data = req.body
     console.log(data)
@@ -74,4 +78,4 @@ userApi.post('/register', protectedAsyncFunc(async (req, res) => {
     await newUser.save()
     
     res.send("OK")
-})); //Yaa
+})) //Yaa
