@@ -51,7 +51,7 @@ userApi.post('/register', async (req, res) => {
 
     const newUser = new User({
         username: data.username,
-        password: data.password,
+        password: hashPassword(data.password),
         name: {
             title: data.title,
             first: data.firstName,
