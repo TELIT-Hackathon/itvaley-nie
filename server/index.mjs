@@ -1,12 +1,14 @@
 import { Router } from "express";
 import express from "express";
 import { tagsApi } from "./Routes/tags-api.mjs";
+import { processUser } from "./login.mjs";
 
 const baseRouter = new Router();
 baseRouter.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.originalUrl}`);
 
-    //TODO add login verify
+    const user = processUser(req);
+    req.user = user;
 
     next();
 });
