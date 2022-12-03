@@ -12,26 +12,30 @@ import api from "../api"
 import axios from 'axios'
 import { Link, withRouter } from "react-router-dom"
 import Chip from '@mui/material/Chip';
+import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
 import { Context } from '../api';
 
-class RequestForm extends React.Component {
+
+export default class RequestForm extends React.Component {
   constructor(props) {
     super(props)
 
     
     this.state  = {
-        contacts: []
+        tags: []
     }
 }
 
+
 componentDidMount () {
-    this.context.request('/tags', {
+    this.context.request('/tags/categories', {
         method: 'get',
       })
       .then(function (response) {
         // handle success
         console.log(response);
-        this.setState({contacts:response.data})
+        this.setState({tags:response.data})
       }.bind(this))
       .catch(function (error) {
         // handle error
@@ -39,6 +43,31 @@ componentDidMount () {
       })
 }
   render() {
+    const handleSubmit = event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const jsondata = {
+        title: data.get('title'),
+        description: data.get('description'),
+        tags: data.get("tags"),
+      };
+
+      const { redirect } = this.context
+
+      this.context.request('/requests',{
+        method: 'post',
+        data: jsondata
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        redirect("/user/requests")
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+    };
     return (
         <Context.Consumer>
           {api => (
@@ -52,55 +81,69 @@ componentDidMount () {
                   alignItems: 'center',
                 }}
               >
-                <Typography component="h1" variant="h3">
-                  Create Request
-                </Typography>
-                <Typography component="h1" variant="h5">
-                  Request Title
-                </Typography>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="title"
-                    label="Request title"
-                    name="title"
-                    autoFocus
-                  />
-                <Typography component="h1" variant="h5">
-                  Description
-                </Typography>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="description"
-                    label="Description"
-                    id="description"
-                  />
-                <Typography component="h1" variant="h5">
-                  Skills
-                </Typography>
-{/* 
-                {chipData.map((data) => {
-                let icon;
-
-                return (
-                  <ListItem key={data.key}>
-                    <Chip
-                      icon={icon}
-                      label={data.label}
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                  <Typography component="h1" variant="h3">
+                    Create Request
+                  </Typography>
+                  <Typography component="h1" variant="h5">
+                    Request Title
+                  </Typography>
+                  <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      multiline
+                      id="title"
+                      label="Request title"
+                      name="title"
+                      autoFocus
                     />
-                  </ListItem>
-                  );
-                })} */}
-
+                  <Typography component="h1" variant="h5">
+                    Description
+                  </Typography>
+                  <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      multiline
+                      name="description"
+                      label="Description"
+                      id="description"
+                    />
+                  <Typography component="h1" variant="h5">
+                    Skills
+                  </Typography>
+                  <Autocomplete
+                    multiple
+                    id="tags-standard"
+                    options={this.state.tags}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="standard"
+                        label="Tags"
+                        name="tags"
+                        id="tags"
+                      />
+                      )}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Create
+                      </Button>
+                    </Box>
               </Box>
             </Container>
           )}
         </Context.Consumer>
+
+        
     );
   }
 }
-
-export default withRouter(RequestForm)
+RequestForm.contextType = Context
