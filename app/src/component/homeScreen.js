@@ -15,36 +15,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import api from "../api"
 import axios from 'axios'
+import Stack from '@mui/material/Stack';
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const jsondata = {
-      username: data.get('username'),
-      password: data.get('password'),
-      title: data.get("title"),
-      picture: data.get("picture"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      location: data.get('location'),
-      role: data.get('role'),
-    };
-    axios({
-      method: 'post',
-      url: `${api.URL}/api/user/register`,
-      data: jsondata
-    })
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-  };
-
+  
   return (
       <Container component="main" maxWidth="xs" sx={{height: '100%'}}>
         <Box
@@ -56,12 +31,21 @@ export default function SignUp() {
             height: '100%',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            WELCOME
-          </Typography>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h3">
+                WELCOME
+            </Typography>
+            <Stack direction="row" spacing={2}>
+            <Link to="/register" relative="path">
+                <Button
+                variant="contained">Sign Up</Button>
+            </Link>
+            <Link to="/login" relative="path">
+                <Button variant="contained">Sign In</Button>
+            </Link>
+        </Stack>
         </Box>
       </Container>
   );
