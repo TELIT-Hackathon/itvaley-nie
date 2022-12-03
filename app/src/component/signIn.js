@@ -8,6 +8,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import api from "../api"
 
 const theme = createTheme();
 
@@ -15,9 +16,19 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const jsondata = {
+      username: data.get('username'),
       password: data.get('password'),
+    };
+    fetch(`${api.URL}/api/user/login`, {
+    method: 'POST',
+    body: JSON.stringify(jsondata)
+    }).then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     });
   };
 
