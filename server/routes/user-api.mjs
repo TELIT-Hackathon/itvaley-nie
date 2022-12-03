@@ -7,3 +7,12 @@ userApi.get('/me', (req, res) => {
 userApi.get('/:id', (req, res) => {
     res.send(`GET data about ${req.params.id}`);
 });
+userApi.post('/login', (req, res) => {
+    res.send(`GET data about ${req.params.id}`);
+});
+userApi.post('/register', (req, res) => {
+    const data = req.body;
+    console.log(data);
+
+    res.send("OK")
+});
