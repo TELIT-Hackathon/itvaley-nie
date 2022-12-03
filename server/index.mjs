@@ -16,7 +16,7 @@ app.use(cors())
 
 const baseRouter = new Router()
 baseRouter.use(async (req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.originalUrl}`)
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`)
     console.log(`Body ${JSON.stringify(req.body)}`)
 
     req.user = await processUser(req)
