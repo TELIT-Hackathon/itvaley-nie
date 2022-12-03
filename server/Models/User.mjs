@@ -19,6 +19,7 @@ const UserSchema = new Schema({
         medium: String,
         thumbnail: String,
     },
+    setupComplete: Boolean
 })
 
 const User = mongoose.model('User', UserSchema)

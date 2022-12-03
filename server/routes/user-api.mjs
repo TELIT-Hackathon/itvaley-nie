@@ -1,4 +1,5 @@
 import { Router } from "express";
+import User from "../Models/User.mjs";
 
 export const userApi = new Router();
 userApi.get('/me', (req, res) => {
@@ -10,9 +11,21 @@ userApi.get('/:id', (req, res) => {
 userApi.post('/login', (req, res) => {
     res.send(`GET data about ${req.params.id}`);
 });
-userApi.post('/register', (req, res) => {
+userApi.post('/register', async (req, res) => {
     const data = req.body;
     console.log(data);
 
-    res.send("OK")
+    if(data.username && data.password){
+
+        const newUser = new User({
+            username: data.username,
+            password: data.password,
+            setupComplete: false
+        });
+        await newUser.save();
+        
+        res.send("OK");
+    }else{
+        res.status(406).send('Not Acceptable')
+    }
 });
