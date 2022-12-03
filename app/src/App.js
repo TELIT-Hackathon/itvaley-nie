@@ -31,9 +31,8 @@ export default class App extends React.Component {
 							<Route path="/register"><SignUp/></Route>
 							<Route path="/login"><LogIn/></Route>
 							<Route path="/user"><User/></Route>
-							{/* <Route path="*" element={<Typography>NENI TAKE</Typography>} /> */}
 							<Route path="*">
-                <HomeScreen/>
+								<HomeScreen/>
 							</Route>
 						</Switch>
 					</BrowserRouter>

@@ -6,7 +6,9 @@ import DashboardContent from './component/dashboard';
 import Request from './component/request';
 import Profile from './component/profile';
 import Message from './component/message';
+import Box from '@mui/material/Box';
 
+import { Context } from './api';
 
 import { Route, Switch } from "react-router-dom";
 import { Typography } from '@mui/material';
@@ -24,11 +26,13 @@ export default class User extends React.Component {
         return <>
             <DashboardContent/>
             <Switch>
-                <Route path="/user/dashboard"><Dashboard/></Route>
+                <Route path="/user/dashboard">
+                    DASHBOARD
+                </Route>
                 <Route path="/user/contacts"><Contacts/></Route>
-                <Route path="profile"><Profile/></Route>
+                <Route path="/user/profile"><Profile/></Route>
           		<Route path="message"><Message/></Route>
-          		<Route path="contacts"><contactList/></Route>
+          		<Route path="/user/contacts"><Contacts/></Route>
           		<Route path="request"><Request/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>

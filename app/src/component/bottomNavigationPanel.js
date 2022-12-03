@@ -61,11 +61,14 @@ export default class LabelBottomNavigation extends React.Component {
                   icon={<PeopleAltIcon />} 
                 />
               </Link>
-              <BottomNavigationAction 
-                label="Profile" 
-                value="profile" 
-                icon={<PersonIcon />} 
-              />
+              <Link to="/user/profile">
+                <BottomNavigationAction 
+                  label="Profile" 
+                  value="profile" 
+                  icon={<PersonIcon />} 
+                />
+              </Link>
+              
             </BottomNavigation>
           );
     }

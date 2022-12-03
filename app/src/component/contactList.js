@@ -12,6 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import SendIcon from '@mui/icons-material/Send';
 import {Link} from "react-router-dom";
 
+import { Context } from '../api';
 
 export default class AlignItemsList extends React.Component {
     constructor(props) {
@@ -24,9 +25,8 @@ export default class AlignItemsList extends React.Component {
     }
 
     componentDidMount () {
-        axios({
+        this.context.request('/user/all', {
             method: 'get',
-            url: `${api.URL}/api/user/all`,
           })
           .then(function (response) {
             // handle success
@@ -68,3 +68,4 @@ export default class AlignItemsList extends React.Component {
         )
     }
 }
+AlignItemsList.contextType = Context
