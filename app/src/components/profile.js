@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
-import { Context } from '../api';
+import api, { Context } from '../api';
 import { Button } from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
@@ -29,20 +29,16 @@ export default class Profile extends React.Component {
         const handleSubmit = event => {
             event.preventDefault();
             const data = new FormData(event.currentTarget);
-            const jsondata = {
-              username: data.get('username'),
-              password: data.get('password'),
-              title: data.get("title"),
-              picture: data.get("picture"),
-              firstName: data.get("firstName"),
-              lastName: data.get("lastName"),
-              location: data.get('location'),
-              role: data.get('role'),
-            };
-      
+            console.log(this.context)
+            const patchData = this.context.user
+
+            patchData.name.title = data.get("title")
+            patchData.name.first = data.get("firstName")
+            patchData.name.last = data.get("lastName")  
+
             const { redirect } = this.context
       
-            this.context.register(jsondata)
+            this.context.request("/user/me", {method: "patch", body: patchData})
             .then(function (response) {
               // handle success
               console.log(response);
@@ -144,6 +140,14 @@ export default class Profile extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
+                            <Button
+                              type="save"
+                              fullWidth
+                              variant="contained"
+                              sx={{ mt: 3, mb: 2 }}
+                            >
+                              Save
+                            </Button>
                         </Box>
                     </Box>
                 </Container>
