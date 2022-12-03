@@ -32,7 +32,7 @@ export default function SignIn() {
     .then(function (response) {
       // handle success
       console.log(response);
-      navigate("/dashboard")
+      navigate("/user/dashboard")
     })
     .catch(function (error) {
       // handle error
