@@ -1,22 +1,34 @@
+import User from './Models/Category.mjs'
+import Category from './Models/Category.mjs'
+import cats from './cats.mjs'
 import mongoose from 'mongoose'
-import RandomUser from 'randomuser'
-const client = new RandomUser()
 
-const Schema = mongoose.Schema
-const ObjectId = Schema.ObjectId
+// const client = new RandomUser()
 
-client.getUsers({ results: 2, gender: 'male' }, data => {
-    console.log(data)
+// client.getUsers({
+//     results: 2,
+//     gender: 'male'
+// }, data => {
+//     console.log(data)
+// })
+
+await mongoose.connect('mongodb+srv://admin:aJlXDjXh6dLBUhWV@cluster0.ijfjind.mongodb.net/test')
+
+const categories = []
+
+Object.keys(cats).forEach(name => {
+    const cat = new Category()
+    cat.name = name
+    categories.push(cat)
+
+    Object.keys(cats[name].tags).forEach(name => {
+        const c = new Category()
+        c.name = name
+        c.parent = cat.id
+        categories.push(c)
+    })
 })
 
-
-
-
-
-// await mongoose.connect('mongodb://127.0.0.1:27017/hk22')
-
-// const test = new User()
-// test.username = 'ArianaGrande'
-// test.save(err => {
-//     if(!err) console.log('Success!')
-// })
+Category.insertMany(categories).then(() => {
+    console.log('Data inserted')
+}).catch(error => console.log(error))
