@@ -13,13 +13,12 @@ import FormLabel from '@mui/material/FormLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link, withRouter } from "react-router-dom"
 
 import { Context } from '../api';
 
 class SignUp extends React.Component {
   render() {
-    const handleSubmit = (api, event) => {
+    const handleSubmit = event => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       const jsondata = {
@@ -33,13 +32,13 @@ class SignUp extends React.Component {
         role: data.get('role'),
       };
 
-      const history = this.props.history
+      const { redirect } = this.context
 
-      api.register(jsondata)
+      this.context.register(jsondata)
       .then(function (response) {
         // handle success
         console.log(response);
-        history.push("/user/dashboard")
+        redirect("/user/dashboard")
       })
       .catch(function (error) {
         // handle error
@@ -66,7 +65,7 @@ class SignUp extends React.Component {
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <Box component="form" noValidate onSubmit={evt => handleSubmit(api, evt)} sx={{ mt: 3 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                   <TextField
@@ -166,4 +165,6 @@ class SignUp extends React.Component {
   }
 }
 
-export default withRouter(SignUp)
+SignUp.contextType = Context
+
+export default SignUp

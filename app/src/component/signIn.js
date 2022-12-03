@@ -21,11 +21,11 @@ class SignIn extends React.Component {
 
       const data = new FormData(event.currentTarget)
       
-      const history = this.props.history
+      const { redirect } = this.context
 
-      api.login(data.get('username'), data.get('password'))
+      this.context.login(data.get('username'), data.get('password'))
         .then(() => {
-          history.push('/user/dashboard')
+          redirect('/user/dashboard')
         })
     };
 
@@ -84,5 +84,6 @@ class SignIn extends React.Component {
     );
   }
 }
+SignIn.contextType = Context
 
-export default withRouter(SignIn)
+export default SignIn
