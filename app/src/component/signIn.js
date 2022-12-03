@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from "../api"
+import axios from 'axios'
 
 const theme = createTheme();
 
@@ -20,18 +21,20 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     };
-    fetch(`${api.URL}/api/user/login`, {
-    method: 'POST',
-    body: jsondata,
-    headers: {"Content-Type" : "application/json",
-    "Access-Control-Allow-Origin":"*" }
-    }).then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
+    
+    axios({
+      method: 'post',
+      url: `${api.URL}/api/user/login`,
+      data: jsondata
     })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
   };
 
   return (
