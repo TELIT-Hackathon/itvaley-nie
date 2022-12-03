@@ -32,7 +32,6 @@ export default class User extends React.Component {
                 <Route path="/user/contacts"><Contacts/></Route>
                 <Route path="/user/profile"><Profile/></Route>
           		<Route path="message"><Message/></Route>
-          		<Route path="/user/contacts"><Contacts/></Route>
           		<Route path="request"><Request/></Route>
                 <Route path="*" element={<Typography>NENI TAKE</Typography>} />
             </Switch>
