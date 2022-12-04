@@ -20,8 +20,6 @@ ChartJS.register(
   Legend
 )
 
-
-
 export class SpiderChartView extends React.Component {
   render() {
     return (

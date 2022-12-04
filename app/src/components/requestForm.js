@@ -96,8 +96,6 @@ export default class RequestForm extends React.Component {
                 options={this.state.optionsTags}
               />
 
-              <SpiderChartView/>
-
               <Box
                 sx={{
                   marginTop: 8,
