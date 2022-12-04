@@ -7,11 +7,11 @@ import newcats from './newCats.mjs'
 const client = new RandomUser()
 
 client.getUsers({
-    results: 15,
+    results: 300,
     gender: 'male'
 }, data1 => {
     client.getUsers({
-        results: 15,
+        results: 300,
         gender: 'female'
     }, data2 => {
         let data = [...data1, ...data2]

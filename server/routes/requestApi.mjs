@@ -4,7 +4,7 @@ import Request from "../Models/Request.mjs";
 import Skill from "../Models/Skill.mjs";
 import User from "../Models/User.mjs";
 import newCats from "../newCats.mjs";
-import users from "../users.mjs";
+import users from "../test.mjs";
 
 const parsedSkills = newCats.map(elem => {
     elem.id = elem.name
@@ -16,8 +16,9 @@ const matching = (hisSkills, wantedSkills) => {
     // skill - id, level
     const result = wantedSkills.map(skill => {
         const matchedSkill = hisSkills.find(s => s.id === skill.id)
+        let r 
         if(matchedSkill){
-            return 1 - 0.25 * Math.abs(matchedSkill.level - skill.level);
+            r = 1 - 0.25 * Math.abs(matchedSkill.level - skill.level);
         }else{
             // resolve skill and get related
             const resolvedSkills = hisSkills.map(janevjem => {
@@ -28,16 +29,18 @@ const matching = (hisSkills, wantedSkills) => {
             const mappedSkills = resolvedSkills.map(janevjem => Math.max(...janevjem.rel.map(
                 s2 => {
                     if(skill.id === s2.id){
-                        return (1 - 0.25 * Math.abs(skill.level - janevjem.level)) * s2.value
+                        r = (1 - 0.25 * Math.abs(skill.level - janevjem.level)) * s2.value
                     }
-                    return 0;
+                    r = 0;
                 }
             )))
             console.log(mappedSkills)
-            return Math.max(...mappedSkills)
+            r = Math.max(...mappedSkills)
         }
+
+        return {id: skill.id, value: r || 0}
     })
-    return result.reduce((a, b) => a + b, 0) / result.length;
+    return result// .reduce((a, b) => a + b, 0) / result.length;
 }
 
 console.log(matching(
@@ -80,7 +83,7 @@ requestApi.post("/userMatching", protectedFunc((req, res) => {
         user.score = matching(user.skills, requirements.skills)
         return user
     })
-    .sort((r1,r2) => r2.score - r1.score)
+    .sort((r1,r2) => r2.score.reduce((a, b) => a + b.value, 0) / r2.score.length - r1.score.reduce((a, b) => a + b.value, 0) / r1.score.length)
 
     res.json(result)
 }))

@@ -33,14 +33,14 @@ export class SkillsInput extends React.Component {
     }
 
     this.setState({
-      value: [...this.state.value, { id: Object.keys(this.props.options)[Object.values(this.props.options).indexOf(id)], value: 3 }],
+      value: [...this.state.value, { id: Object.keys(this.props.options)[Object.values(this.props.options).indexOf(id)], level: 3 }],
       searchValue: ''
     }, () => this.props.onChange(this.state.value));
   };
 
   handleValueUpdate = (id, value) => {
     this.setState({
-      value: this.state.value.map(e => e.id == id ? { id, value } : e)
+      value: this.state.value.map(e => e.id == id ? { id, level: value } : e)
     }, () => this.props.onChange(this.state.value));
   };
 
@@ -55,7 +55,7 @@ export class SkillsInput extends React.Component {
           >
             <ListItemText
               primary={this.props.options[tag.id]} />
-            <Rating value={tag.value} onChange={(_, value) => this.handleValueUpdate(tag.id, value)} />
+            <Rating value={tag.level} onChange={(_, value) => this.handleValueUpdate(tag.id, value)} />
           </ListItem>
         ))}
       </List>

@@ -440,36 +440,11 @@ export class Demo extends React.Component {
                     { id: 'Javascript', level: 4 },
                     { id: 'Typescript', level: 3 },
                     { id: 'HTML-CSS', level: 2 },
+                    { id: 'Larawell', level: 1 },
+                    { id: 'Cpp', level: 1 },
                 ]
             },
-            matches: [
-                {
-                    id: 'id',
-                    avatar: 'https://horoskop-tarot.sk/images/astro_stars/ariana_grande_zivotopis-znamenie_zverokruhu-laska-zivot-fakty.jpg',
-                    username: 'Ariana Grande',
-                    location: 'USA?',
-                    skills: {
-                        'JavaScript': [1, 3],
-                        'TypeScript': [4, 1],
-                        'Node.js': [5, 2],
-                        'MongoDB': [3, 1],
-                        'React': [1, 4],
-                    }
-                },
-                {
-                    id: 'ids',
-                    avatar: 'https://horoskop-tarot.sk/images/astro_stars/ariana_grande_zivotopis-znamenie_zverokruhu-laska-zivot-fakty.jpg',
-                    username: 'Ariana Grandeeeeeeeeeeeeeeeeeeeee',
-                    location: 'USAeeeeeeeeeeeeeeeeeeeeee?',
-                    skills: {
-                        'JavaScript': [2, 1],
-                        'TypeScript': [4, 4],
-                        'Node.js': [5, 3],
-                        'MongoDB': [1, 1],
-                        'React': [1, 4],
-                    }
-                }
-            ]
+            matches: []
         }
     }
 

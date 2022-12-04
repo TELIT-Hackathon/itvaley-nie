@@ -26,20 +26,30 @@ export class Swipe extends React.Component {
         super(props);
 
         this.state = {
-            open: false
+            open: false,
+            data: []
         }
     }
 
     handleClickOpen = () => {
-        this.context.request('/userMatching', {
+        fetch('http://localhost:8080/api/requests/userMatching', {
             method: 'post',
-            body: this.props.search
-
-        }).then(data => {
-            console.log(data)
+            body: JSON.stringify(this.props.search),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-
-        this.setState({ open: true })
+        .then(data => data.json())
+        .then(data => {
+            console.log(data)
+            this.setState({ open: true, data: data.map(d => ({
+                ...d,
+                skills: this.props.search.skills.reduce((pre, cur) => ({
+                    ...pre,
+                    [cur.id]: [cur.level, (d.skills.find(e => e.id == cur.id) ?? {level: 0}).level]
+                }), {})
+            })) })
+        })
     }
   
     handleClose = () => {
@@ -47,7 +57,7 @@ export class Swipe extends React.Component {
     }
 
     render() {
-        const user = this.props.data[0]
+        const user = this.state.data[0]
 
         return <>
             <Button variant="outlined" onClick={this.handleClickOpen}>
@@ -94,12 +104,13 @@ export class Swipe extends React.Component {
                                 />
                                 <CardContent>
                                     <SpiderChartView data={user.skills}/>
+                                    <Typography>Match: {Math.round(user.score.reduce((p, c) => p + c.value, 0) / user.score.length * 100)}%</Typography>
                                 </CardContent>
                                 <CardActions sx={{ width: '100%' }}>
-                                    <IconButton sx={{ marginRight: 'auto' }} size='large' onClick={() => this.props.onDecline(user)}>
+                                    <IconButton sx={{ marginRight: 'auto' }} size='large' onClick={() => this.setState({data: this.state.data.filter(e => e != user)})}>
                                         <CloseIcon />
                                     </IconButton>
-                                    <IconButton size='large'>
+                                    <IconButton size='large' onClick={() => this.setState({data: this.state.data.filter(e => e != user)})}>
                                         <FavoriteIcon sx={{ color: 'red' }}/>
                                     </IconButton>
                                 </CardActions>
