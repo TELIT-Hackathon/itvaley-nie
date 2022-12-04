@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +16,15 @@ import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import { Context } from '../api';
+import { ListItemAvatar, Rating } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
+import { SkillsInput } from './SkillsInput';
 
+import { SpiderChartView } from './SpiderChartView';
+
+export const ListItemTag = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
 
 export default class RequestForm extends React.Component {
   constructor(props) {
@@ -23,25 +32,33 @@ export default class RequestForm extends React.Component {
 
     
     this.state  = {
-        tags: []
+      availableTags: [],
+        optionsTags: {
+          '1': 'JavaScript',
+          '2': 'TypeScript'
+        },
+        selectedTags: [
+          { id: '1', value: 2 },
+          { id: '2', value: 3 }
+        ]
     }
 }
 
 
-componentDidMount () {
-    this.context.request('/tags/categories', {
-        method: 'get',
-      })
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        this.setState({tags:response.data})
-      }.bind(this))
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-}
+// componentDidMount () {
+//     this.context.request('/tags/categories', {
+//         method: 'get',
+//       })
+//       .then(function (response) {
+//         // handle success
+//         console.log(response);
+//         this.setState({availableTags: response.data.reduce((pre, cur) => ({...pre, [cur.id]: cur.name}), {})})
+//       }.bind(this))
+//       .catch(function (error) {
+//         // handle error
+//         console.log(error);
+//       })
+// }
   render() {
     const handleSubmit = event => {
       event.preventDefault();
@@ -72,7 +89,9 @@ componentDidMount () {
         <Context.Consumer>
           {api => (
             <Container component="main" maxWidth="xs">
-              <CssBaseline />
+              
+              
+
               <Box
                 sx={{
                   marginTop: 8,
@@ -81,62 +100,51 @@ componentDidMount () {
                   alignItems: 'center',
                 }}
               >
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                  <Typography component="h1" variant="h3">
-                    Create Request
-                  </Typography>
-                  <Typography component="h1" variant="h5">
-                    Request Title
-                  </Typography>
-                  <TextField
-                      margin="normal"
-                      required
+                <Typography component="h1" variant="h3">
+                  Create Request
+                </Typography>
+                <Typography component="h1" variant="h5">
+                  Request Title
+                </Typography>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    multiline
+                    id="title"
+                    label="Request title"
+                    name="title"
+                    autoFocus
+                  />
+                <Typography component="h1" variant="h5">
+                  Description
+                </Typography>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    multiline
+                    name="description"
+                    label="Description"
+                    id="description"
+                  />
+                <Typography component="h1" variant="h5">
+                  Skills
+                </Typography>
+                <SkillsInput
+                  value={this.state.selectedTags}
+                  onChange={value => this.setState({selectedTags: value})}
+                  options={this.state.optionsTags}
+                />
+                
+                  <Button
+                      type="submit"
                       fullWidth
-                      multiline
-                      id="title"
-                      label="Request title"
-                      name="title"
-                      autoFocus
-                    />
-                  <Typography component="h1" variant="h5">
-                    Description
-                  </Typography>
-                  <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      multiline
-                      name="description"
-                      label="Description"
-                      id="description"
-                    />
-                  <Typography component="h1" variant="h5">
-                    Skills
-                  </Typography>
-                  <Autocomplete
-                    multiple
-                    id="tags-standard"
-                    options={this.state.tags}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="standard"
-                        label="Tags"
-                        name="tags"
-                        id="tags"
-                      />
-                      )}
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                      >
-                        Create
-                      </Button>
-                    </Box>
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Create
+                    </Button>
               </Box>
             </Container>
           )}

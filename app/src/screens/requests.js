@@ -2,6 +2,9 @@ import { List } from "@mui/material";
 import React from "react";
 import { Context } from "../api";
 import RequestCard from "../components/requestCard";
+import { Link } from "react-router-dom"
+import Button from '@mui/material/Button';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 export default class Requests extends React.Component {
     constructor(props){
@@ -34,6 +37,13 @@ export default class Requests extends React.Component {
                 {
                     this.state.requests.map((request,i) => <RequestCard sx={{ maxHeight: 150, }} key={i} request={request}/>)
                 }
+                <ListItemIcon>
+                    <Link to="/requestform">
+                        <Button variant="contained" >
+                            
+                        </Button>
+                    </Link>
+                </ListItemIcon>
             </List>
         );
     }
