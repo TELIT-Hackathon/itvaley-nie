@@ -30,14 +30,14 @@ export default function ButtonBases() {
                 My Requests
             </Button>
         </Link>
-        <Link to="/user/matchedRequests">
+        <Link to="/user/incomingRequests">
             <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 >
-                Matched Requests
+                Incoming Requests
             </Button>
         </Link>
     </Box>

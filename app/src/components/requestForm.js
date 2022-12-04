@@ -19,7 +19,11 @@ import { Context } from '../api';
 import { ListItemAvatar, Rating } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 import { SkillsInput } from './SkillsInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
 
+import Grid from '@mui/material/Grid';
 import { SpiderChartView } from './SpiderChartView';
 
 export const ListItemTag = styled('li')(({ theme }) => ({
@@ -89,9 +93,6 @@ export default class RequestForm extends React.Component {
         <Context.Consumer>
           {api => (
             <Container component="main" maxWidth="xs">
-              
-              
-
               <Box
                 sx={{
                   marginTop: 8,
@@ -104,7 +105,7 @@ export default class RequestForm extends React.Component {
                   Create Request
                 </Typography>
                 <Typography component="h1" variant="h5">
-                  Request Title
+                  {/* Request Title */}
                 </Typography>
                 <TextField
                     margin="normal"
@@ -117,7 +118,7 @@ export default class RequestForm extends React.Component {
                     autoFocus
                   />
                 <Typography component="h1" variant="h5">
-                  Description
+                  {/* Description */}
                 </Typography>
                 <TextField
                     margin="normal"
@@ -128,6 +129,34 @@ export default class RequestForm extends React.Component {
                     label="Description"
                     id="description"
                   />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                    <FormControl>
+                      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                        Role
+                      </InputLabel>
+                      <NativeSelect
+                        defaultValue={30}
+                        inputProps={{
+                          name: 'role',
+                          id: 'uncontrolled-native',
+                        }}
+                      >
+                        <option value={10}>Student</option>
+                        <option value={20}>Teacher</option>
+                        <option value={30}>Expert</option>
+                      </NativeSelect>
+                    </FormControl>
+                    </Grid>
+                  <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="outlined-number"
+                    label="Number"
+                    type="number"
+                    
+                  />
+                  </Grid>
+                </Grid>
                 <Typography component="h1" variant="h5">
                   Skills
                 </Typography>
@@ -143,7 +172,7 @@ export default class RequestForm extends React.Component {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      Create
+                      Submit
                     </Button>
               </Box>
             </Container>
