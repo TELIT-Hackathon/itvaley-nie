@@ -3,39 +3,64 @@ import { protectedAsyncFunc } from "../helpers.mjs";
 import Request from "../Models/Request.mjs";
 import Skill from "../Models/Skill.mjs";
 import User from "../Models/User.mjs";
+import newCats from "../newCats.mjs";
+
+const parsedSkills = newCats.map(elem => {
+    elem.id = elem.name
+    return elem
+})
+
+const matching = (hisSkills, wantedSkills) => {
+    // skill - id, level
+    const result = wantedSkills.map(skill => {
+        const matchedSkill = hisSkills.find(s => s.id === skill.id)
+        if(matchedSkill){
+            return 1 - 0.25 * Math.abs(matchedSkill.level - skill.level);
+        }else{
+            // resolve skill and get related
+            const resolvedSkills = hisSkills.map(janevjem => {
+                const life = parsedSkills.find(sk => sk.id === janevjem.id)
+                life.level = janevjem.level
+                return life
+            })
+            const mappedSkills = resolvedSkills.map(janevjem => Math.max(...janevjem.rel.map(
+                s2 => {
+                    if(skill.id === s2.id){
+                        return (1 - 0.25 * Math.abs(skill.level - janevjem.level)) * s2.value
+                    }
+                    return 0;
+                }
+            )))
+            console.log(mappedSkills)
+            return Math.max(...mappedSkills)
+        }
+    })
+    return result.reduce((a, b) => a + b, 0) / result.length;
+}
+
+console.log(matching(
+    [{id:"Typescript", level:2}, {id:"React", level:2}, {id:"Flask", level:1}],
+    [{id:"HTML-CSS", level:5}, {id:"Python", level:3}]
+))
 
 export const requestApi = new Router();
 requestApi.get('/', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
     const all = await Request.find().exec()
-    /*
-    const allButBetter= await all
+
+    const allButBetter = all
         .filter(request => request.peopleNeeded.find(p => p.role === req.user.role))
         .map(async (request) => {
             const skills = request.peopleNeeded
                 .filter(p => p.role === req.user.role)
-                .flatMap(p => p.skills)
-                .map(s => ({
-                    ...s,
-                    value: 1
-                }))
-            console.log(skills)
-            const result = await Skill.find({id:skills.map(x=>x.id)}).exec()
-            const related = result.flatMap(skill => {
-                const origSkill = skills.find(x => x.id == skill.id)
-                return skill.related.map(s => ({...s, level: origSkill.level}))
-            })
-            console.log(related)
-            const merged = [
-                ...skills,
-                ...related,
-            ]
-            console.log(merged)
-            return merged
+                .map(p => p.skills)
+                .map(skills => matching(req.user.skills,skills))
+            const bestMatch = Math.max(...skills)
+            request.score = bestMatch;
         })
-    */
+        .sort((r1,r2) => r1.score - r2.score)
 
-    res.json(all)
+    res.json(allButBetter)
 }, true))
 
 requestApi.get('/mine', protectedAsyncFunc(async (req, res) => {
@@ -113,9 +138,6 @@ requestApi.get('/test', protectedAsyncFunc(async (req, res) => {
             ]
             console.log(merged)
             return merged
-        })
-        .map(skill => {
-
         })
 
 
