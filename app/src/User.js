@@ -10,6 +10,8 @@ import Box from '@mui/material/Box';
 import RequestForm from './components/requestForm';
 import Board from './screens/board';
 import IncomingRequests from './screens/incomingRequests';
+import ConcreteRequest from './screens/concreteRequest';
+
 import UserRequests from './screens/userRequests';
 
 import { Context } from './api';
@@ -31,6 +33,8 @@ export default class User extends React.Component {
                     <Route path="/user/message"><Message/></Route>
                     <Route path="/user/requests"><Requests/></Route>
                     <Route path="/user/requestform"><RequestForm/></Route>
+                    <Route path="/user/userRequests/:id" component={ConcreteRequest}/>
+                    <Route path="/user/incomingRequests/:id" component={ConcreteRequest}/>
                     <Route path="/user/incomingRequests"><IncomingRequests/></Route>
                     <Route path="/user/userRequests"><UserRequests/></Route>
                     <Route path="*" element={<Typography>NENI TAKE</Typography>} />

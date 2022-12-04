@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import SendIcon from '@mui/icons-material/Send';
 import {Link} from "react-router-dom";
+import Typography from '@mui/material/Typography';
 
 import { Context } from '../api';
 
@@ -43,6 +44,9 @@ export default class AlignItemsList extends React.Component {
         console.log(this.state)
         return (
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                <Typography component="h1" variant="h3">
+                        Connections
+                    </Typography>
                 {
                     this.state.contacts.map(contact => <>
                         <ListItem alignItems="flex-start">

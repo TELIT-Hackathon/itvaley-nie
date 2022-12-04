@@ -1,51 +1,78 @@
 import { List } from "@mui/material";
 import React from "react";
 import { Context } from "../api";
-import RequestCard from "../components/requestCard";
 import { Link } from "react-router-dom"
 import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import SendIcon from '@mui/icons-material/Send';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
-export default class Requests extends React.Component {
+export default class userRequest extends React.Component {
     constructor(props){
         super(props)
 
-        
         this.state = {
-            requests: []
+            requests: [
+                {
+                  title: "random title",
+                  description: "random desc",
+                  tags: ["javascript", "typescript"],
+                  type: "student",
+                  amount: 2,
+                  id: "kdashzufgaszfiasgifasgu"
+            },
+            {
+                title: "random titdsadle",
+                description: "random dessdadasc",
+                tags: ["javascript", "typescript"],
+                type: "expert",
+                amount: 3,
+                id: "arianagrandejaaaaaa"
+          }
+        ]
         }
     }
 
-    componentDidMount = () => {
-        this.context.request('/requests', {
-            method: 'get',
-          })
-          .then(function (response) {
-            // handle success
-            console.log(response);
-            this.setState({requests:response.data})
-          }.bind(this))
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          })
-    }
+    // componentDidMount = () => {
+    //     this.context.request('/requests', {
+    //         method: 'get',
+    //       })
+    //       .then(function (response) {
+    //         // handle success
+    //         console.log(response);
+    //         this.setState({requests:response.data})
+    //       }.bind(this))
+    //       .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //       })
+    // }
 
     render() {
+        console.log(this.state)
         return (
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <List sx={{ width: '100%',  bgcolor: 'background.paper' }}>
+                <Typography component="h1" variant="h3">
+                        My requests
+                    </Typography>
                 {
-                    this.state.requests.map((request,i) => <RequestCard sx={{ maxHeight: 150, }} key={i} request={request}/>)
+                    this.state.requests.map(request => <>
+                        <Link to={`/user/incomingRequests/${request.id}`} relative="path">
+                            <ListItem requestItem="flex-start">
+                                <ListItemText
+                                primary={request.title}
+                                secondary={request.description}
+                                />
+                            </ListItem>
+                        </Link>
+                        <Divider variant="inset" component="li" />
+                    </>)
                 }
-                <ListItemIcon>
-                    <Link to="/user/dashboard">
-                        <Button variant="contained" >
-                            Home
-                        </Button>
-                    </Link>
-                </ListItemIcon>
             </List>
-        );
+        )
     }
 }
-Requests.contextType = Context
+userRequest.contextType = Context
