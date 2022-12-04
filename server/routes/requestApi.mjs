@@ -4,9 +4,9 @@ import Request from "../Models/Request.mjs";
 
 export const requestApi = new Router();
 requestApi.get('/', protectedAsyncFunc(async (req, res) => {
-    const all = await Request.find({isInProject: false}).exec()
+    const all = await Request.find().exec()
     res.json(all)
-}))
+}, true))
 requestApi.post('/', protectedAsyncFunc(async (req, res) => {
     const data = req.body
     console.log(data)
@@ -18,8 +18,7 @@ requestApi.post('/', protectedAsyncFunc(async (req, res) => {
         categories: [], //TODO
         interestedUsers: [],
         closedAt: null,
-        createdBy: req.user.id,
-        isInProject: data.isInProject || false
+        createdBy: req.user.id
     })
     const request = await newRequest.save()
     res.json(request)

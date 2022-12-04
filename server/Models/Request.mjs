@@ -12,8 +12,7 @@ const RequestSchema = new Schema({
     }],
     interestedUsers: [ObjectId],
     closedAt: Date,
-    createdBy: ObjectId,
-    isInProject: Boolean
+    createdBy: ObjectId
 })
 
 const Request = mongoose.model('Request', RequestSchema)
