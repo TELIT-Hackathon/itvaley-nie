@@ -73,10 +73,7 @@ userApi.post('/register', protectedAsyncFunc(async (req, res) => {
             first: data.firstName,
             last: data.lastName
         },
-        skills: [{ //Kefanus did this mess
-            id: ObjectId,
-            level: Number
-        }],
+        skills: data.skills ?? [],
         role: data.role,
         location: data.location,
         picture:{
