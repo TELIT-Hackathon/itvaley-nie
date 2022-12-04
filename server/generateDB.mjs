@@ -1,5 +1,4 @@
-import User from './Models/Category.mjs'
-import Category from './Models/Category.mjs'
+import Skill from './Models/Skill.mjs'
 import cats from './cats.mjs'
 import mongoose from 'mongoose'
 
@@ -17,18 +16,18 @@ await mongoose.connect('mongodb+srv://admin:aJlXDjXh6dLBUhWV@cluster0.ijfjind.mo
 const categories = []
 
 Object.keys(cats).forEach(name => {
-    const cat = new Category()
+    const cat = new Skill()
     cat.name = name
     categories.push(cat)
 
     cats[name].tags.forEach(name => {
-        const c = new Category()
+        const c = new Skill()
         c.name = name
         c.parent = cat.id
         categories.push(c)
     })
 })
 
-Category.insertMany(categories).then(() => {
+Skill.insertMany(categories).then(() => {
     console.log('Data inserted')
 }).catch(error => console.log(error))

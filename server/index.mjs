@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import express from 'express'
-import { tagsApi } from './Routes/tagsApi.mjs'
+import { skillsApi } from './Routes/skillsApi.mjs'
 import { processUser } from './login.mjs'
 import mongoose from 'mongoose'
 import { userApi } from './Routes/userApi.mjs'
@@ -23,7 +23,7 @@ baseRouter.use(async (req, res, next) => {
     next()
 })
 
-baseRouter.use('/api/tags', tagsApi)
+baseRouter.use('/api/skills', skillsApi)
 baseRouter.use('/api/user', userApi)
 baseRouter.use('/api/requests', requestApi)
 
