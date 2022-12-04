@@ -102,6 +102,21 @@ class ApiProvideraa extends React.Component {
         }
         catch(err) { error(err) }
     }
+    //Kefanus did this mess
+    makeRequest = async (data, error = err => {}) => {
+        try {
+            const tokenRequest = await this.request('/user/requestform', {
+                method: 'POST',
+                data
+            })
+
+            this.setState({
+                user: tokenRequest.data,
+                token: tokenRequest.data.token
+            })
+        }
+        catch(err) { error(err) }
+    }
 
     logout = async () => {
         // await this.request('/user/logout')

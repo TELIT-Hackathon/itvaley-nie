@@ -116,7 +116,8 @@ export default class RequestForm extends React.Component {
       const jsondata = {
         title: data.get('title'),
         description: data.get('description'),
-        tags: data.get("tags"),
+        skills: data.get("skills"),
+        amount: data.get("amount")
       };
 
       const { redirect } = this.context
@@ -153,6 +154,7 @@ export default class RequestForm extends React.Component {
                 <Typography component="h1" variant="h5">
                   {/* Request Title */}
                 </Typography>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <TextField
                     margin="normal"
                     required
@@ -175,6 +177,44 @@ export default class RequestForm extends React.Component {
                     label="Description"
                     id="description"
                   />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                    <FormControl>
+                      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                        Role
+                      </InputLabel>
+                      <NativeSelect
+                        defaultValue={30}
+                        inputProps={{
+                          name: 'role',
+                          id: 'uncontrolled-native',
+                        }}
+                      >
+                        <option value={10}>Student</option>
+                        <option value={20}>Teacher</option>
+                        <option value={30}>Expert</option>
+                      </NativeSelect>
+                    </FormControl>
+                    </Grid>
+                  <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="outlined-number"
+                    label="Number"
+                    type="number"
+                    
+                  />
+                  </Grid>
+                </Grid>
+                <Typography component="h1" variant="h5">
+                  Skills
+                </Typography>
+                <SkillsInput
+                  id
+                  value={this.state.selectedTags}
+                  onChange={value => this.setState({selectedTags: value})}
+                  options={this.state.optionsTags}
+                />
+                
                   <Daco optionsTags={this.state.optionsTags} value={{
                     type: 'student',
                     selectedTags: [
@@ -194,6 +234,7 @@ export default class RequestForm extends React.Component {
                     >
                       Submit
                     </Button>
+              </Box>
               </Box>
             </Container>
           )}

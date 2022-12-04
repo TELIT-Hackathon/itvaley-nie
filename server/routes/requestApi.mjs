@@ -127,8 +127,9 @@ requestApi.post('/', protectedAsyncFunc(async (req, res) => {
         title: data.title,
         description: data.description,
         activities: [],
-        categories: [], //TODO
-        interestedUsers: [],
+        //skills: data.skills.map(skill => ({id: new ObjectId(/*skill.id*/), level: skill.level})),
+        amount: data.amount,
+        // interestedUsers: [ObjectId],
         closedAt: null,
         createdBy: req.user.id
     })

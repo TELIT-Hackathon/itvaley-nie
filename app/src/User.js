@@ -18,6 +18,7 @@ import { Context } from './api';
 
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Typography } from '@mui/material';
+import Test from './components/test';
 
 
 export default class User extends React.Component {
@@ -37,6 +38,7 @@ export default class User extends React.Component {
                     <Route path="/user/incomingRequests/:id" component={ConcreteRequest}/>
                     <Route path="/user/incomingRequests"><IncomingRequests/></Route>
                     <Route path="/user/userRequests"><UserRequests/></Route>
+                    <Route path="/user/test"><Test/></Route>
                     <Route path="*" element={<Typography>NENI TAKE</Typography>} />
                 </Switch>
             </Box>
