@@ -45,6 +45,29 @@ export class SkillsInput extends React.Component {
   };
 
   render() {
+    return <>
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', marginBottom:'auto' }}>
+        {this.props.value.map(tag => (
+          <ListItem
+            secondaryAction={<IconButton edge="end" aria-label="delete" onClick={() => this.handleDelete(tag.id)}>
+              <DeleteIcon />
+            </IconButton>}
+          >
+            <ListItemText
+              primary={this.props.options[tag.id]} />
+            <Rating value={tag.value} onChange={(_, value) => this.handleValueUpdate(tag.id, value)} />
+          </ListItem>
+        ))}
+      </List>
+      <Autocomplete
+        disablePortal
+        options={Object.keys(this.props.options).filter(e => !this.state.value.some(ee => ee.id == e)).map(e => this.props.options[e])}
+        fullWidth
+        renderInput={(params) => <TextField {...params} label="Search" />}
+        value={this.state.searchValue}
+        onChange={(_, value) => this.handleAdd(value)} />
+    </>
+
     return (
       <>
         <Modal

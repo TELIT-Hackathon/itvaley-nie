@@ -9,6 +9,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { ApiProvider, Context } from './api'
+import { Demo } from './Demo';
 
 const theme = createTheme()
 
@@ -25,6 +26,7 @@ class Sw extends React.Component {
 		// ) : <Redirect to='/user/profile'/>
 		return (
 			<Switch>
+				<Route path="/demo"><Demo/></Route>
 				<Route path="/home"><HomeScreen/></Route>
 				<Route path="/register"><SignUp/></Route>
 				<Route path="/login">{!this.context.loggedIn() ? <LogIn/> : <Redirect to='/user/dashboard'/>}</Route>

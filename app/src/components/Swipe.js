@@ -17,8 +17,8 @@ import { Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+    return <Slide direction="up" ref={ref} {...props} />
+})
 
 export class Swipe extends React.Component {
     constructor(props) {
@@ -42,7 +42,7 @@ export class Swipe extends React.Component {
 
         return <>
             <Button variant="outlined" onClick={this.handleClickOpen}>
-                Open full-screen dialog
+                Show matches
             </Button>
             <Dialog
                 fullScreen
