@@ -90,11 +90,7 @@ export default class RequestForm extends React.Component {
           {api => (
             <Container component="main" maxWidth="xs">
               
-              <SkillsInput
-                value={this.state.selectedTags}
-                onChange={value => this.setState({selectedTags: value})}
-                options={this.state.optionsTags}
-              />
+              
 
               <Box
                 sx={{
@@ -135,32 +131,12 @@ export default class RequestForm extends React.Component {
                 <Typography component="h1" variant="h5">
                   Skills
                 </Typography>
-                <Autocomplete
-                  multiple
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tags-standard"
-                  options={this.state.availableTags}
-                  getOptionLabel={(option) => this.state[option.id]}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="standard"
-                      label="Tags"
-                    />
-                  )}
-                  renderTags={(tagValue, getTagProps) =>
-                    tagValue.map((option, index) => (
-                      <Chip
-                        {...getTagProps({ index })}
-                        label={option.name}
-                        deleteIcon={<Rating name="size-small" defaultValue={2} size="small" />}
-                        onDelete={() => {}}
-                      />
-                    ))
-                  }
-                  />
+                <SkillsInput
+                  value={this.state.selectedTags}
+                  onChange={value => this.setState({selectedTags: value})}
+                  options={this.state.optionsTags}
+                />
+                
                   <Button
                       type="submit"
                       fullWidth
