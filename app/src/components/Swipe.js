@@ -37,14 +37,6 @@ export class Swipe extends React.Component {
         this.setState({ open: false })
     }
 
-    handleAccept = () => {
-        
-    }
-
-    handleDecline = () => {
-        
-    }
-
     render() {
         const user = this.props.data[0]
 
