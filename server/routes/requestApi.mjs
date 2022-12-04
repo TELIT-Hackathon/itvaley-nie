@@ -1,14 +1,16 @@
 import { Router } from "express";
-import { protectedAsyncFunc } from "../helpers.mjs";
+import { protectedAsyncFunc, protectedFunc } from "../helpers.mjs";
 import Request from "../Models/Request.mjs";
 import Skill from "../Models/Skill.mjs";
 import User from "../Models/User.mjs";
 import newCats from "../newCats.mjs";
+import users from "../users.mjs";
 
 const parsedSkills = newCats.map(elem => {
     elem.id = elem.name
     return elem
 })
+const parsedUsers = users
 
 const matching = (hisSkills, wantedSkills) => {
     // skill - id, level
@@ -69,6 +71,21 @@ requestApi.get('/mine', protectedAsyncFunc(async (req, res) => {
     res.json(mine)
 },true))
 
+requestApi.post("/userMatching", protectedFunc((req, res) => {
+    const requirements = req.body
+
+    const result = users
+    .filter(user=>user.role === requirements.role)
+    .map(user=>{
+        user.score = matching(user.skills, requirements.skills)
+        return user
+    })
+    .sort((r1,r2) => r2.score - r1.score)
+
+    res.json(result)
+}))
+
+/*
 requestApi.get('/test2', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
     const all = [
@@ -94,7 +111,6 @@ requestApi.get('/test2', protectedAsyncFunc(async (req, res) => {
     
     res.json()
 }, true))
-
 requestApi.get('/test', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
     const all = [
@@ -144,6 +160,7 @@ requestApi.get('/test', protectedAsyncFunc(async (req, res) => {
 
     res.json(allButBetter)
 }, true))
+*/
 
 requestApi.post('/', protectedAsyncFunc(async (req, res) => {
     const data = req.body
