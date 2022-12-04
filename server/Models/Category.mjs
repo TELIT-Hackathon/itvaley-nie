@@ -5,7 +5,6 @@ const ObjectId = Schema.ObjectId
 
 const CategorySchema = new Schema({
     name: String,
-    parent: ObjectId,
 })
 
 const Category = mongoose.model('Category', CategorySchema)

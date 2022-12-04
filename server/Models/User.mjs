@@ -11,7 +11,10 @@ const UserSchema = new Schema({
         first: String,
         last: String,
     },
-    categories: [ObjectId],
+    categories: [{
+        id: ObjectId,
+        level: Number
+    }],
     role: String, // 'student' | 'teacher' | 'expert'
     location: String,
     picture: {
