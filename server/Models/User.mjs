@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         first: String,
         last: String,
     },
-    categories: [{
+    skills: [{
         id: ObjectId,
         level: Number
     }],
