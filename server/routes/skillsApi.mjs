@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { protectedAsyncFunc } from "../helpers.mjs";
+import { protectedAsyncFunc, protectedFunc } from "../helpers.mjs";
 import Category from "../Models/Skill.mjs";
 import newCats from "../newCats.mjs";
 
