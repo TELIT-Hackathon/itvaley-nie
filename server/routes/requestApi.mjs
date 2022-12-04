@@ -39,7 +39,8 @@ requestApi.get('/', protectedAsyncFunc(async (req, res) => {
 }, true))
 
 requestApi.get('/mine', protectedAsyncFunc(async (req, res) => {
-    await Request.find({createdBy:req.user.id}).exec()
+    const mine = await Request.find({createdBy:req.user.id}).exec()
+    res.json(mine)
 },true))
 
 requestApi.get('/test2', protectedAsyncFunc(async (req, res) => {
