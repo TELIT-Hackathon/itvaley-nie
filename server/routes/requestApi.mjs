@@ -29,11 +29,16 @@ requestApi.get('/', protectedAsyncFunc(async (req, res) => {
                 ...skills,
                 ...related,
             ]
+            console.log(merged)
             return merged
         })
 
     res.json(allButBetter)
 }, true))
+
+requestApi.get('/mine', protectedAsyncFunc(async (req, res) => {
+    await Request.find({createdBy:req.user.id}).exec()
+},true))
 
 requestApi.get('/test2', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
@@ -60,6 +65,7 @@ requestApi.get('/test2', protectedAsyncFunc(async (req, res) => {
     
     res.json()
 }, true))
+
 requestApi.get('/test', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
     const all = [
