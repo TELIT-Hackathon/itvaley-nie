@@ -19,12 +19,62 @@ import { Context } from '../api';
 import { ListItemAvatar, Rating } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 import { SkillsInput } from './SkillsInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
 
+import Grid from '@mui/material/Grid';
 import { SpiderChartView } from './SpiderChartView';
 
 export const ListItemTag = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
+
+
+class Daco extends React.Component{
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+        <FormControl>
+          <InputLabel variant="standard" htmlFor="uncontrolled-native">
+            Role
+          </InputLabel>
+          <NativeSelect
+            defaultValue={this.props.value.type}
+            inputProps={{
+              name: 'role',
+              id: 'uncontrolled-native',
+            }}
+          >
+            <option value={10}>Student</option>
+            <option value={20}>Teacher</option>
+            <option value={30}>Expert</option>
+          </NativeSelect>
+        </FormControl>
+        </Grid>
+      <Grid item xs={12} sm={6}>
+      <TextField
+        id="outlined-number"
+        label="Number"
+        type="number"
+        value={this.props.value.amount}
+      />
+
+      <SkillsInput
+        value={this.props.value.selectedTags}
+        // onChange={value => this.setState({selectedTags: value})}
+        options={this.props.optionsTags}
+      />
+
+      </Grid>
+    </Grid>
+    )
+  }
+}
 
 export default class RequestForm extends React.Component {
   constructor(props) {
@@ -66,7 +116,8 @@ export default class RequestForm extends React.Component {
       const jsondata = {
         title: data.get('title'),
         description: data.get('description'),
-        tags: data.get("tags"),
+        skills: data.get("skills"),
+        amount: data.get("amount")
       };
 
       const { redirect } = this.context
@@ -89,13 +140,6 @@ export default class RequestForm extends React.Component {
         <Context.Consumer>
           {api => (
             <Container component="main" maxWidth="xs">
-              
-              <SkillsInput
-                value={this.state.selectedTags}
-                onChange={value => this.setState({selectedTags: value})}
-                options={this.state.optionsTags}
-              />
-
               <Box
                 sx={{
                   marginTop: 8,
@@ -108,8 +152,9 @@ export default class RequestForm extends React.Component {
                   Create Request
                 </Typography>
                 <Typography component="h1" variant="h5">
-                  Request Title
+                  {/* Request Title */}
                 </Typography>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <TextField
                     margin="normal"
                     required
@@ -121,7 +166,7 @@ export default class RequestForm extends React.Component {
                     autoFocus
                   />
                 <Typography component="h1" variant="h5">
-                  Description
+                  {/* Description */}
                 </Typography>
                 <TextField
                     margin="normal"
@@ -132,43 +177,64 @@ export default class RequestForm extends React.Component {
                     label="Description"
                     id="description"
                   />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                    <FormControl>
+                      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                        Role
+                      </InputLabel>
+                      <NativeSelect
+                        defaultValue={30}
+                        inputProps={{
+                          name: 'role',
+                          id: 'uncontrolled-native',
+                        }}
+                      >
+                        <option value={10}>Student</option>
+                        <option value={20}>Teacher</option>
+                        <option value={30}>Expert</option>
+                      </NativeSelect>
+                    </FormControl>
+                    </Grid>
+                  <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="outlined-number"
+                    label="Number"
+                    type="number"
+                    
+                  />
+                  </Grid>
+                </Grid>
                 <Typography component="h1" variant="h5">
                   Skills
                 </Typography>
-                <Autocomplete
-                  multiple
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tags-standard"
-                  options={this.state.availableTags}
-                  getOptionLabel={(option) => this.state[option.id]}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="standard"
-                      label="Tags"
-                    />
-                  )}
-                  renderTags={(tagValue, getTagProps) =>
-                    tagValue.map((option, index) => (
-                      <Chip
-                        {...getTagProps({ index })}
-                        label={option.name}
-                        deleteIcon={<Rating name="size-small" defaultValue={2} size="small" />}
-                        onDelete={() => {}}
-                      />
-                    ))
-                  }
-                  />
+                <SkillsInput
+                  id
+                  value={this.state.selectedTags}
+                  onChange={value => this.setState({selectedTags: value})}
+                  options={this.state.optionsTags}
+                />
+                
+                  <Daco optionsTags={this.state.optionsTags} value={{
+                    type: 'student',
+                    selectedTags: [
+                      { id: '1', value: 2 },
+                      { id: '2', value: 3 }
+                    ],
+                    amount: 2
+                  }}/>
+
+
+
                   <Button
                       type="submit"
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      Create
+                      Submit
                     </Button>
+              </Box>
               </Box>
             </Container>
           )}

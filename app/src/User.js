@@ -9,7 +9,7 @@ import Message from './components/message';
 import Box from '@mui/material/Box';
 import RequestForm from './components/requestForm';
 import Board from './screens/board';
-import MatchedRequests from './screens/matchedRequests';
+import IncomingRequests from './screens/incomingRequests';
 import UserRequests from './screens/userRequests';
 
 import { Context } from './api';
@@ -32,7 +32,7 @@ export default class User extends React.Component {
                     <Route path="/user/message"><Message/></Route>
                     <Route path="/user/requests"><Requests/></Route>
                     <Route path="/user/requestform"><RequestForm/></Route>
-                    <Route path="/user/matchedRequests"><MatchedRequests/></Route>
+                    <Route path="/user/incomingRequests"><IncomingRequests/></Route>
                     <Route path="/user/userRequests"><UserRequests/></Route>
                     <Route path="/user/test"><Test/></Route>
                     <Route path="*" element={<Typography>NENI TAKE</Typography>} />

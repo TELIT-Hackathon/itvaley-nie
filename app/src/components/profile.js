@@ -52,7 +52,7 @@ export default class Profile extends React.Component {
 
         return <Context.Consumer>
             {api => <>
-                <Typography>{JSON.stringify(api.user)}</Typography>
+                {/* <Typography>{JSON.stringify(api.user)}</Typography> */}
                 <Button onClick={api.logout}>LOGOUT</Button>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />

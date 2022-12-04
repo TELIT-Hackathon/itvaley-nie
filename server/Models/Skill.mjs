@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId
 
 const SkillSchema = new Schema({
     name: String,
-    related: [{skill:ObjectId, value:Number}]
+    related: [{id:ObjectId, value:Number}]
 })
 
 const Skill = mongoose.model('Skill', SkillSchema)
