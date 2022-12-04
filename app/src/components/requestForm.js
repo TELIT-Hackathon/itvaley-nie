@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +16,13 @@ import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import { Context } from '../api';
+import { ListItemAvatar, Rating } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
+import { SkillsInput } from './SkillsInput';
 
+export const ListItemTag = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
 
 export default class RequestForm extends React.Component {
   constructor(props) {
@@ -23,7 +30,15 @@ export default class RequestForm extends React.Component {
 
     
     this.state  = {
-        tags: []
+      availableTags: [],
+        optionsTags: {
+          '1': 'JavaScript',
+          '2': 'TypeScript'
+        },
+        selectedTags: [
+          { id: '1', value: 2 },
+          { id: '2', value: 3 }
+        ]
     }
 }
 
@@ -34,7 +49,7 @@ componentDidMount () {
       .then(function (response) {
         // handle success
         console.log(response);
-        this.setState({tags:response.data})
+        this.setState({availableTags: response.data.reduce((pre, cur) => ({...pre, [cur.id]: cur.name}), {})})
       }.bind(this))
       .catch(function (error) {
         // handle error
@@ -46,7 +61,13 @@ componentDidMount () {
         <Context.Consumer>
           {api => (
             <Container component="main" maxWidth="xs">
-              <CssBaseline />
+              
+              <SkillsInput
+                value={this.state.selectedTags}
+                onChange={value => this.setState({selectedTags: value})}
+                options={this.state.optionsTags}
+              />
+
               <Box
                 sx={{
                   marginTop: 8,
@@ -88,16 +109,29 @@ componentDidMount () {
                 </Typography>
                 <Autocomplete
                   multiple
+                  margin="normal"
+                  required
+                  fullWidth
                   id="tags-standard"
-                  options={this.state.tags}
-                  getOptionLabel={(option) => option.name}
+                  options={this.state.availableTags}
+                  getOptionLabel={(option) => this.state[option.id]}
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       variant="standard"
                       label="Tags"
                     />
-                    )}
+                  )}
+                  renderTags={(tagValue, getTagProps) =>
+                    tagValue.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        label={option.name}
+                        deleteIcon={<Rating name="size-small" defaultValue={2} size="small" />}
+                        onDelete={() => {}}
+                      />
+                    ))
+                  }
                   />
                   <Button
                       type="submit"
