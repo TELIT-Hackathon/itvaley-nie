@@ -15,6 +15,7 @@ import { Avatar, Card, CardActions, CardContent, CardHeader } from '@mui/materia
 import { SpiderChartView } from './SpiderChartView';
 import { Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Context } from '../api';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
@@ -30,6 +31,14 @@ export class Swipe extends React.Component {
     }
 
     handleClickOpen = () => {
+        this.context.request('/userMatching', {
+            method: 'post',
+            body: this.props.search
+
+        }).then(data => {
+            console.log(data)
+        })
+
         this.setState({ open: true })
     }
   
@@ -80,7 +89,7 @@ export class Swipe extends React.Component {
                             <Card sx={{margin: 4, userSelect: 'none', height: '100%'}}>
                                 <CardHeader
                                     avatar={<Avatar src={user.avatar}/>}
-                                    title={user.username}
+                                    title={user.name}
                                     subheader={user.location}
                                 />
                                 <CardContent>
@@ -102,3 +111,4 @@ export class Swipe extends React.Component {
         </>
     }
 }
+Swipe.contextType = Context

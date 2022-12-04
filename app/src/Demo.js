@@ -7,7 +7,6 @@ import Select from '@mui/material/Select';
 import { Typography } from '@mui/material'
 import { Swipe } from './components/Swipe'
 import { SkillsInput } from './components/SkillsInput'
-import RandomUser from 'randomuser'
 
 const cats = [
     {
@@ -430,10 +429,6 @@ const cats = [
     }
 ]
 
-const users = [
-    
-]
-
 export class Demo extends React.Component {
     constructor(props) {
         super(props)
@@ -442,9 +437,9 @@ export class Demo extends React.Component {
             WhatIWant: {
                 role: 'student',
                 skills: [
-                    { id: 'Javascript', value: 4 },
-                    { id: 'Typescript', value: 3 },
-                    { id: 'HTML-CSS', value: 2 },
+                    { id: 'Javascript', level: 4 },
+                    { id: 'Typescript', level: 3 },
+                    { id: 'HTML-CSS', level: 2 },
                 ]
             },
             matches: [
@@ -489,12 +484,12 @@ export class Demo extends React.Component {
             <Box fullSize sx={{display: 'flex', flexDirection: 'row', height: '100%'}}>
                 <Box fullSize sx={blockStyle}>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                        <InputLabel>Role</InputLabel>
                         <Select
-                            value={this.state.WhatIWant.role}
+                            value={WhatIWant.role}
                             label="User role"
                             onChange={e => {
-                                this.setState({...this.state, WhatIWant: {...this.state.WhatIWant, role: e.target.value}})
+                                this.setState({...this.state, WhatIWant: {...WhatIWant, role: e.target.value}})
                             }}
                         >
                             <MenuItem value={'student'}>Student</MenuItem>
@@ -506,12 +501,12 @@ export class Demo extends React.Component {
 
                     <SkillsInput
                         value={WhatIWant.skills}
-                        onChange={value => this.setState({...this.state, WhatIWant: {...this.state.WhatIWant, skills: value}})}
+                        onChange={value => this.setState({...this.state, WhatIWant: {...WhatIWant, skills: value}})}
                         options={cats.reduce((pre, cur) => ({...pre, [cur.name]: cur.name}), {})}
                     />
                 </Box>
                 <Box fullSize sx={blockStyle}>
-                    <Swipe data={matches}/>
+                    <Swipe data={matches} search={WhatIWant}/>
                 </Box>
             </Box>
         )
