@@ -16,7 +16,7 @@ class ApiProvideraa extends React.Component {
         
         this.state = {
             token: localStorage.getItem('token'),
-            user: null,
+            user: true,
         }
     }
 
@@ -38,6 +38,18 @@ class ApiProvideraa extends React.Component {
             }
         })
     }
+
+    /*patch = (path, body, config = {}) => {
+        return axios({
+            ...config,
+            url: `${this.URL}${path}`,
+            headers: {
+                ...config.headers,
+                'Authorization': this.state.token,
+            },
+            body: body
+        })
+    }*/
 
     login = async (username, password, error = err => {}) => {
         try {
@@ -67,7 +79,13 @@ class ApiProvideraa extends React.Component {
                 user: meRequest.data
             }, redirect ? (() => this.redirect('/user/dashboard')) : (() => {}))
         }
-        catch(err) { console.log(err) }
+        catch(err) { 
+            this.setState({
+                user: null
+            })
+                
+            console.log(err)
+        }
     }
 
     register = async (data, error = err => {}) => {
