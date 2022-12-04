@@ -20,6 +20,8 @@ import { ListItemAvatar, Rating } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 import { SkillsInput } from './SkillsInput';
 
+import { SpiderChartView } from './SpiderChartView';
+
 export const ListItemTag = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
@@ -43,20 +45,20 @@ export default class RequestForm extends React.Component {
 }
 
 
-componentDidMount () {
-    this.context.request('/tags/categories', {
-        method: 'get',
-      })
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        this.setState({availableTags: response.data.reduce((pre, cur) => ({...pre, [cur.id]: cur.name}), {})})
-      }.bind(this))
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-}
+// componentDidMount () {
+//     this.context.request('/tags/categories', {
+//         method: 'get',
+//       })
+//       .then(function (response) {
+//         // handle success
+//         console.log(response);
+//         this.setState({availableTags: response.data.reduce((pre, cur) => ({...pre, [cur.id]: cur.name}), {})})
+//       }.bind(this))
+//       .catch(function (error) {
+//         // handle error
+//         console.log(error);
+//       })
+// }
   render() {
     const handleSubmit = event => {
       event.preventDefault();
@@ -93,6 +95,8 @@ componentDidMount () {
                 onChange={value => this.setState({selectedTags: value})}
                 options={this.state.optionsTags}
               />
+
+              <SpiderChartView/>
 
               <Box
                 sx={{
