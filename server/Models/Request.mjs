@@ -6,9 +6,11 @@ const ObjectId = Schema.ObjectId
 const RequestSchema = new Schema({
     title: String,
     description: String,
-    categories: [ObjectId],
+    categories: [{
+        id: ObjectId,
+        level: Number
+    }],
     interestedUsers: [ObjectId],
-    activities: [ObjectId],
     closedAt: Date,
     createdBy: ObjectId,
     isInProject: Boolean

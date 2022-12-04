@@ -4,7 +4,7 @@ import Request from "../Models/Request.mjs";
 
 export const requestApi = new Router();
 requestApi.get('/', protectedAsyncFunc(async (req, res) => {
-    const all = await Request.find({hidden: false}).exec()
+    const all = await Request.find({isInProject: false}).exec()
     res.json(all)
 }))
 requestApi.post('/', protectedAsyncFunc(async (req, res) => {
