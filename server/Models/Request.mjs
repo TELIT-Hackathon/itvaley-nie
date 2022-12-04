@@ -7,8 +7,11 @@ const RequestSchema = new Schema({
     title: String,
     description: String,
     peopleNeeded: [{
-        id: ObjectId,
-        level: Number,
+        role: String,
+        skills: [{
+            id: ObjectId,
+            level: Number,
+        }],
         amount: Number
     }],
     interestedUsers: [ObjectId],
