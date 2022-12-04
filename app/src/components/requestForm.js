@@ -42,6 +42,7 @@ export default class RequestForm extends React.Component {
     }
 }
 
+
 componentDidMount () {
     this.context.request('/tags/categories', {
         method: 'get',
@@ -57,6 +58,31 @@ componentDidMount () {
       })
 }
   render() {
+    const handleSubmit = event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const jsondata = {
+        title: data.get('title'),
+        description: data.get('description'),
+        tags: data.get("tags"),
+      };
+
+      const { redirect } = this.context
+
+      this.context.request('/requests',{
+        method: 'post',
+        data: jsondata
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        redirect("/user/requests")
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+    };
     return (
         <Context.Consumer>
           {api => (
