@@ -9,7 +9,7 @@ const RequestSchema = new Schema({
     peopleNeeded: [{
         role: String,
         skills: [{
-            id: ObjectId,
+            id: String,
             level: Number,
         }],
         amount: Number

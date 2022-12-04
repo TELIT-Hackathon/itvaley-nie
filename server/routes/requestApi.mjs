@@ -47,18 +47,19 @@ export const requestApi = new Router();
 requestApi.get('/', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
     const all = await Request.find().exec()
-
     const allButBetter = all
         .filter(request => request.peopleNeeded.find(p => p.role === req.user.role))
-        .map(async (request) => {
+        .map((request) => {
+            console.log(request)
             const skills = request.peopleNeeded
                 .filter(p => p.role === req.user.role)
                 .map(p => p.skills)
                 .map(skills => matching(req.user.skills,skills))
             const bestMatch = Math.max(...skills)
             request.score = bestMatch;
+            return request
         })
-        .sort((r1,r2) => r1.score - r2.score)
+        .sort((r1,r2) => r2.score - r1.score)
 
     res.json(allButBetter)
 }, true))
@@ -151,10 +152,8 @@ requestApi.post('/', protectedAsyncFunc(async (req, res) => {
     const newRequest = new Request({
         title: data.title,
         description: data.description,
-        activities: [],
-        //skills: data.skills.map(skill => ({id: new ObjectId(/*skill.id*/), level: skill.level})),
-        amount: data.amount,
-        // interestedUsers: [ObjectId],
+        peopleNeeded: data.peopleNeeded ?? [],
+        interestedUsers: [],
         closedAt: null,
         createdBy: req.user.id
     })

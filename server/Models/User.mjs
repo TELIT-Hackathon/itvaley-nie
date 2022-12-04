@@ -12,7 +12,7 @@ const UserSchema = new Schema({
         last: String,
     },
     skills: [{
-        id: ObjectId,
+        id: String,
         level: Number
     }],
     role: String, // 'student' | 'teacher' | 'expert'
