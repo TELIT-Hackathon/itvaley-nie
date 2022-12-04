@@ -8,6 +8,9 @@ import Profile from './components/profile';
 import Message from './components/message';
 import Box from '@mui/material/Box';
 import RequestForm from './components/requestForm';
+import Board from './screens/board';
+import MatchedRequests from './screens/matchedRequests';
+import UserRequests from './screens/userRequests';
 
 import { Context } from './api';
 
@@ -21,13 +24,15 @@ export default class User extends React.Component {
             <Box sx={{height: 'calc(100% - 60px)', overflowY: 'scroll', overflowX: 'hidden'}}>
                 <Switch>
                     <Route path="/user/dashboard">
-                        DASHBOARD
+                        <Board/>
                     </Route>
                     <Route path="/user/contacts"><Contacts/></Route>
                     <Route path="/user/profile"><Profile/></Route>
                     <Route path="/user/message"><Message/></Route>
                     <Route path="/user/requests"><Requests/></Route>
                     <Route path="/user/requestform"><RequestForm/></Route>
+                    <Route path="/user/matchedRequests"><MatchedRequests/></Route>
+                    <Route path="/user/userRequests"><UserRequests/></Route>
                     <Route path="*" element={<Typography>NENI TAKE</Typography>} />
                 </Switch>
             </Box>
