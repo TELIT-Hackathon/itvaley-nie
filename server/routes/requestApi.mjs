@@ -8,6 +8,7 @@ export const requestApi = new Router();
 requestApi.get('/', protectedAsyncFunc(async (req, res) => {
     // without special preprocessing we can only use good old scanning
     const all = await Request.find().exec()
+    /*
     const allButBetter= await all
         .filter(request => request.peopleNeeded.find(p => p.role === req.user.role))
         .map(async (request) => {
@@ -32,12 +33,14 @@ requestApi.get('/', protectedAsyncFunc(async (req, res) => {
             console.log(merged)
             return merged
         })
+    */
 
-    res.json(allButBetter)
+    res.json(all)
 }, true))
 
 requestApi.get('/mine', protectedAsyncFunc(async (req, res) => {
-    await Request.find({createdBy:req.user.id}).exec()
+    const mine = await Request.find({createdBy:req.user.id}).exec()
+    res.json(mine)
 },true))
 
 requestApi.get('/test2', protectedAsyncFunc(async (req, res) => {
